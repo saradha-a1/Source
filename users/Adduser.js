@@ -29,13 +29,13 @@ export default function () {
     // Define headers - secure with environment variables
     const headers = {
         'Content-Type': 'application/json',
-        'X-Access-Key-Id': 'Ak08d847a0-65b3-4431-b4af-3dec279e2cf8',
-        'X-Access-Key-Secret': 'ETa0qxhRrNa75rg5ggye3vkqWNEIgfCnNnRCjdqo4Tlk87kBUsu7kv5VacwKzNr6VtJzSXEefMxf0nxZl5BA',
+        'X-Access-Key-Id': 'Aka50cd94a-3f74-4920-a586-32a4fcfd5b2a',
+        'X-Access-Key-Secret': 'eyhwUvnUQDNtkKChbkGkZFtc0vemhZtUKGDt2UUjAdRQJA8Kv8ykBHNqPE9ec3bGvHyEHcc0OKwbljAWeZKcA',
     };
 
     // Send HTTP POST request
     const response = http.post(
-        'https://perftesting.tst.zingworks.com/user/2/AcALBWpQxCDN?skip_email=false',
+        'https://perftesting.luna.kissflow.co.in/user/2/AcALBWpQxCDN_CP001?skip_email=false',
         payload,
         { headers }
     );

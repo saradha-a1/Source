@@ -4,11 +4,11 @@ import http from 'k6/http';
 import { check } from 'https://jslib.k6.io/k6-utils/1.5.0/index.js';
 import { sleep } from 'k6';
 
-const BASE_URL = 'https://perftesting.tst.zingworks.com/user/2/AcALBWpQxCDN';
+const BASE_URL = 'https://perftesting.luna.kissflow.co.in//user/2/AcALBWpQxCDN_CP001';
 const USER_LIST_URL = `${BASE_URL}/?page_number=1&page_size=10&q=&user_type=User&invited_user=true`;
 const HEADERS = {
-    'X-Access-Key-Id': 'Ak08d847a0-65b3-4431-b4af-3dec279e2cf8',
-    'X-Access-Key-Secret': 'ETa0qxhRrNa75rg5ggye3vkqWNEIgfCnNnRCjdqo4Tlk87kBUsu7kv5VacwKzNr6VtJzSXEefMxf0nxZl5BA',
+    'X-Access-Key-Id': 'Aka50cd94a-3f74-4920-a586-32a4fcfd5b2a',
+    'X-Access-Key-Secret': 'eyhwUvnUQDNtkKChbkGkZFtc0vemhZtUKGDt2UUjAdRQJA8Kv8ykBHNqPE9ec3bGvHyEHcc0OKwbljAWeZKcA',
 };
 // Fetch a list of invited users from the API
 function getInvitedUsers() {
@@ -32,7 +32,7 @@ if (!userList || !Array.isArray(userList)) {
 }
 
 // Filter out "saradha@kissflow.com" and return the remaining users
-const invitedUsers = userList.filter(user => user.Email !== 'saradha@kissflow.com');
+const invitedUsers = userList.filter(user => user.Email !== 'saradha@kissflow.com','chanakyan@kissflow.com','chris_martin@bugbug-inbox.com','jane_smith@bugbug-inbox.com','john_doe@bugbug-inbox.com','sarah_brown@bugbug-inbox.com');
 return invitedUsers;
 }
 
