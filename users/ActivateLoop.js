@@ -2,9 +2,9 @@
 import { browser } from 'k6/browser';
 import http from 'k6/http';
 import { check } from 'https://jslib.k6.io/k6-utils/1.5.0/index.js';
-import { sleep } from 'k6';
 
-const BASE_URL = 'https://perftesting.luna.kissflow.co.in//user/2/AcALBWpQxCDN_CP001';
+
+const BASE_URL = 'https://perftesting.luna.kissflow.co.in/user/2/AcALBWpQxCDN_CP001';
 const USER_LIST_URL = `${BASE_URL}/?page_number=1&page_size=10&q=&user_type=User&invited_user=true`;
 const HEADERS = {
     'X-Access-Key-Id': 'Aka50cd94a-3f74-4920-a586-32a4fcfd5b2a',

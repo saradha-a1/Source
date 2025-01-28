@@ -1,143 +1,100 @@
-const puppeteer = require('puppeteer');
-const fs = require('fs');
-const path = require('path');
-const readline = require('readline');
+import { open } from 'k6/experimental/fs';
+import { browser } from 'k6/browser';
+import { check } from 'https://jslib.k6.io/k6-utils/1.5.0/index.js';
 
-
-
-// Helper function to manually parse CSV and return dataset names
-function parseCSV(content) {
-    const rows = content.split('\n');
-    const datasetNames = [];
-
-    // Assuming the first row contains headers
-    for (let i = 1; i < rows.length; i++) {
-        const columns = rows[i].split(',');
-
-        // Adjust the index to match the column that contains the dataset name
-        if (columns[0]) { // Check if the first column has a value
-            datasetNames.push(columns[0].trim());
-        }
-    }
-
-    return datasetNames;
-}
-
-
+// Dataset names will be populated here
 let datasetNames = [];
-let datasetsPath = `../Dataset/datasets/`; // The folder where datasets are stored
 
-function init() {
-    // Step 1: Read the dataset CSV to get dataset names
-    const DATASET_CSV_PATH = `${datasetsPath}Dataset_ID.csv`; // The path to your dataset CSV file
-    console.log(`datapath: ${DATASET_CSV_PATH}`);
+// Read the CSV file in the init function
+export function init() {
+    try {
+        const file = open('./Dataset_ID.csv', 'r');  // Open file for reading
+        const content = file.read();  // Read the content of the CSV file
+        console.log(`CSV File Content: ${content}`);
+        
+        // Parse dataset names (assuming one dataset name per line)
+        datasetNames = content.split('\n').map((line) => line.trim()).filter((line) => line);
+        
+        if (datasetNames.length === 0) {
+            throw new Error('No datasets found in the CSV file.');
+        }
 
-    const fileContent = open(DATASET_CSV_PATH, 'utf-8'); // Read the CSV content
-    datasetNames = parseCSV(fileContent); // Parse CSV content manually
+        console.log(`Parsed Dataset Names: ${datasetNames}`);
+    } catch (err) {
+        console.error(`Error reading CSV file: ${err.message}`);
+    }
 }
 
-(async () => {
-    const datasetsPath = path.join(__dirname, '../Dataset/datasets/');
-    const datasetCSVPath = path.join(datasetsPath, 'Dataset_ID.csv');
-    const browser = await puppeteer.launch({
-        headless: false, // Set to false to open the browser window
-        args: ['--start-maximized'], // This maximizes the window
-    });
+// Test options configuration with browser setup
+export const options = {
+    scenarios: {
+        default: {
+            executor: 'shared-iterations',
+            iterations: 1,
+            vus: 1,
+            options: {
+                browser: {
+                    type: 'chromium',  // Ensure the browser type is correctly set to 'chromium'
+                },
+            },
+        },
+    },
+};
 
-
-    // Get the default browser context
-    const page = await browser.newPage();
-
-    // Set the viewport size to match the maximized window
-    const { width, height } = await page.evaluate(() => ({
-        width: window.screen.width,
-        height: window.screen.height,
-    }));
-    await page.setViewport({ width, height });
-   
-    if (!fs.existsSync(datasetCSVPath)) {
-        console.error(`Dataset_ID.csv not found in ${datasetsPath}`);
-        return;
-    }
-
-    const csvContent = fs.readFileSync(datasetCSVPath, 'utf-8');
-    const datasetNames = csvContent.split('\n').slice(1).map(row => row.split(',')[0].trim());
-
-    console.log(`Found datasets: ${datasetNames.join(', ')}`);
-
-
-
+export default async function () {
+    const context = await browser.newContext();
+    const page = await context.newPage();
+    
     try {
-        // Step 1: Navigate to the login page
+        // Step 1: Login
         console.log('Navigating to login page...');
-        await page.goto('https://perftesting.tst.zingworks.com/view/login', { waitUntil: 'networkidle0', timeout: 60000 });
-        console.log('Login page loaded.');
+        await page.goto('https://perftesting.tst.zingworks.com/view/login', { waitUntil: 'networkidle' });
 
-        // Type email and password
-        await page.type('#email', 'saradha@kissflow.com', { delay: 100 }); // Add delay for realistic typing
-        console.log('Email typed.');
-
-        await page.type('#password', 'Saradha@1228', { delay: 100 }); // Add delay for realistic typing
-        console.log('Password typed.');
-
-        // Click the login button
-        await page.click('button[data-component="button"]'); // Adjust selector if necessary
-        console.log('Login button clicked.');
-
-        // Wait for the login to process and the home page to load
-        await page.waitForNavigation({ waitUntil: 'networkidle0', timeout: 60000 });
-        console.log('Logged in successfully. Navigated to the home page.');
-
-        // Confirm the home page is fully loaded by waiting for a specific element
-        await page.waitForSelector('img[alt="Company Logo"]', { timeout: 30000 }); // Replace with an actual element selector on the home page
-        console.log('Home page loaded successfully.');
-
-        // Navigate to a different page if required
-        await page.goto('https://perftesting.tst.zingworks.com/view/home', { waitUntil: 'networkidle0'});
-
-        // Step 3: Process each dataset
-        for (const datasetName of datasetNames) {
+        await page.type('#email', 'saradha@kissflow.com');
+        await page.type('#password', 'Saradha@1228');
+        await page.click('button[data-component="button"]');
+        await page.waitForNavigation({ waitUntil: 'networkidle' });
+        console.log('Logged in successfully.');
+await page.waitForTimeout(5000);
+        // Step 2: Iterate over the datasets
+        for (let i = 0; i < datasetNames.length; i++) {
+            const datasetName = datasetNames[i];
             console.log(`Processing dataset: ${datasetName}`);
-
+            
             // Navigate to the dataset page
-            const datasetUrl = `https://perftesting.tst.zingworks.com/view/dataset/${datasetName}`;
-            console.log(`Navigating to: ${datasetUrl}`);
+            const datasetURL = `https://perftesting.tst.zingworks.com/view/dataset/${datasetName}`;
+            console.log(`Navigating to dataset: ${datasetURL}`);
+            const response = await page.goto(datasetURL, { waitUntil: 'networkidle' });
+
+            // Check if the dataset page loaded successfully
+            check(response, {
+                [`Dataset ${datasetName} page loaded successfully`]: (res) => res.status === 200,
+            });
+
+            // Step 3: Simulate importing a CSV file
+            const datasetFilePath = `/Users/saradha/Documents/Metadata Automation/Source/Dataset/datasets/${datasetName}.csv`;
+            console.log(`Checking if dataset file exists at: ${datasetFilePath}`);
             
-            await page.goto(datasetUrl, { waitUntil: 'networkidle0', timeout: 60000 });
-            console.log(`Successfully navigated to: ${datasetUrl}`);
-            await page.waitForSelector('body > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(4) > div:nth-child(1) > button:nth-child(1)',{ timeout: 15000 }); // Replace with an actual selector
-            console.log('Dataset page loaded successfully.');
+            // Here you can add file checking logic if needed or check if the file path exists on your machine
 
-            // Click on the "Import CSV" button
-            console.log('Clicking "Import CSV" button...');
-            await page.click("body > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(4) > div:nth-child(1) > button:nth-child(1)");
-           
-
-            // Check if the corresponding dataset CSV file exists
-            const csvFilePath = path.resolve(datasetsPath, `${datasetName}.csv`);
-            if (!fs.existsSync(csvFilePath)) {
-                console.log(`No file found for dataset: ${datasetName}. Skipping...`);
-                continue;
-            }
-
-            // Upload the corresponding CSV file
-            console.log(`Uploading file: ${csvFilePath}`);
-            const fileInput = await page.$('input[type="file"]');
-            await fileInput.uploadFile(csvFilePath);
-            console.log('File uploaded successfully.');
+            // Wait for the Import CSV button and click
+            await page.waitForSelector('div.actions--b8d99bd2 button:nth-child(1)');
+            await page.click('div.actions--b8d99bd2 button:nth-child(1)');
+            console.log(`Clicked Import CSV for ${datasetName}`);
             
+            // Simulate file upload (if required)
+            // If the file exists at the given path, upload the corresponding CSV
+            await page.setInputFiles('input[type="file"]', datasetFilePath);
+            console.log(`Uploaded file: ${datasetFilePath}`);
 
-            // Click the "Next" button
-            console.log('Clicking "Next" button...');
-            await page.click("//div[@class='ant-modal-root']//button[2]");
-            await waitForTimeout(10000);
-
-            console.log(`Completed processing for Dataset: ${datasetName}`);
+            // Optionally, wait for the action to complete before moving to the next dataset
+            await page.waitForTimeout(2000);
         }
-    } catch (error) {
-        console.error(`Error: ${error.message}`);
+        
+    } catch (err) {
+        console.error(`Error in browser actions: ${err.message}`);
     } finally {
-        await browser.close();
-        console.log('Browser closed.');
+        await page.close();
+        await context.close();
     }
-})();
+}

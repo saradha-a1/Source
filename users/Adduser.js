@@ -3,8 +3,8 @@ import http from 'k6/http';
 import { check, sleep } from 'k6';
 
 export const options = {
-    vus: 2, // Single virtual user for demonstration
-    duration: '3s', // Test duration
+    vus: 20, // Single virtual user for demonstration
+    duration: '5s', // Test duration
 };
 
 export default function () {
