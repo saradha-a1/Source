@@ -4,8 +4,8 @@ const fs = require('fs');
 const path = require('path');
 
 // Resolve paths
-const datasetsPath = path.resolve(__dirname, '../Dataset/datasets/');
-const datasetCSVPath = path.resolve(datasetsPath, 'DatasetID.csv');
+const datasetsPath = path.resolve(__dirname, '../Dataset/datasets');
+const datasetCSVPath = path.resolve(__dirname, '../Asset/CSV/Dataset_ID.csv');
 let datasetNames = [];
 
 // Helper: Wait function
