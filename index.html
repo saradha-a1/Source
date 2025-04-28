@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Automation Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .sidebar {
+            height: 100vh;
+            background-color: #2c3e50;
+            color: white;
+            padding-top: 20px;
+        }
+        .main-content {
+            padding: 20px;
+        }
+        .nav-link {
+            color: #ecf0f1;
+        }
+        .nav-link:hover {
+            color: #3498db;
+        }
+        .test-card {
+            border: 1px solid #ddd;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar">
+                <h4 class="text-center mb-4">Test Dashboard</h4>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Test Cases</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Reports</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Settings</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-10 main-content">
+                <div class="row mb-4">
+                    <div class="col">
+                        <h2>Test Execution Dashboard</h2>
+                    </div>
+                    <div class="col text-end">
+                        <button class="btn btn-primary">New Test Run</button>
+                    </div>
+                </div>
+
+                <!-- Statistics Cards -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="card bg-success text-white">
+                            <div class="card-body">
+                                <h5 class="card-title">Passed Tests</h5>
+                                <h2>85%</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-danger text-white">
+                            <div class="card-body">
+                                <h5 class="card-title">Failed Tests</h5>
+                                <h2>10%</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-warning text-dark">
+                            <div class="card-body">
+                                <h5 class="card-title">Pending Tests</h5>
+                                <h2>5%</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-info text-white">
+                            <div class="card-body">
+                                <h5 class="card-title">Total Tests</h5>
+                                <h2>100</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Test Runs -->
+                <div class="row">
+                    <div class="col">
+                        <h4>Recent Test Runs</h4>
+                        <div class="test-card">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5>Login Page Tests</h5>
+                                <span class="status-badge bg-success">Passed</span>
+                            </div>
+                            <p>Last run: 2 hours ago</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5>User Authentication Tests</h5>
+                                <span class="status-badge bg-danger">Failed</span>
+                            </div>
+                            <p>Last run: 3 hours ago</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5>API Integration Tests</h5>
+                                <span class="status-badge bg-warning">Pending</span>
+                            </div>
+                            <p>Last run: 5 hours ago</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

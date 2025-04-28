@@ -1,0 +1,679 @@
+{
+    "Root": "{processName}",
+    "Patient_Registration_Process": {
+        "Id": "{processName}",
+        "Name": "{processName}",
+        "Kind": "Model",
+        "FlowType": "Process",
+        "Description": "",
+        "Model::Row": [
+            "Row_3anoePolfm",
+            "Row__49WafNayV"
+        ],
+        "Model::Field": [
+            "{Fields.fieldName1}",
+            "{Fields.fieldName2}",
+            "Patient_Age",
+            "Registration_Date",
+            "Department",
+            "Is_Emergency",
+            "Patient_Email",
+            "Payment_method",
+            "Bill_Amount",
+            "services_availed",
+            "Has_Previous_Medical_History",
+            "Referring_Doctor",
+            "Medical_Records"
+        ],
+        "Model::ProcessDef": [
+            "ProcessDef_EJr7eSYmNZ"
+        ],
+        "RootProcessDef": "ProcessDef_EJr7eSYmNZ",
+        "Button::Row": [
+            "Row_qLquZEvqIi"
+        ],
+        "Model::Model": [
+            "Patients_Health_care"
+        ]
+    },
+    "Row_3anoePolfm": {
+        "Id": "Row_3anoePolfm",
+        "Kind": "Row",
+        "Model": "Patient_Registration_Process",
+        "Row::Column": [
+            "Column_DTM-qPAKrB"
+        ]
+    },
+    "Column_DTM-qPAKrB": {
+        "Id": "Column_DTM-qPAKrB",
+        "Kind": "Column",
+        "Type": "Section",
+        "Name": "Untitled Section",
+        "Start": 0,
+        "End": 6,
+        "Row": "Row_3anoePolfm",
+        "Column::Row": [
+            "Row_PuODiTizd2",
+            "Row_Yf-rskadq2",
+            "Row_r5USfUbBCC",
+            "Row_54DxDOiBYX",
+            "Row_RJTb4f0A9u"
+        ]
+    },
+    "Row_PuODiTizd2": {
+        "Id": "Row_PuODiTizd2",
+        "Kind": "Row",
+        "Column": "Column_DTM-qPAKrB",
+        "Row::Column": [
+            "Column_gYA15G1Fy4",
+            "Column_Q7RhDTDv7X",
+            "Column_Gkl63XRMrK"
+        ]
+    },
+    "Column_gYA15G1Fy4": {
+        "Id": "Column_gYA15G1Fy4",
+        "Kind": "Column",
+        "Type": "Field",
+        "Start": 0,
+        "End": 2,
+        "Row": "Row_PuODiTizd2",
+        "Column::Field": [
+            "Patient_Name"
+        ]
+    },
+    "ProcessDef_EJr7eSYmNZ": {
+        "Id": "ProcessDef_EJr7eSYmNZ",
+        "Kind": "ProcessDef",
+        "WorkflowType": "Sequence",
+        "Model": "Patient_Registration_Process",
+        "ProcessDef::Activity": [
+            "Activity_sldDWhBRWb",
+            "Activity_cpTDyo6Mhw",
+            "Activity_KN1P5KY8dY",
+            "Activity__DRtWNq5zW"
+        ]
+    },
+    "Activity_sldDWhBRWb": {
+        "Id": "Activity_sldDWhBRWb",
+        "Kind": "Activity",
+        "NodeType": "StartEvent",
+        "Name": "Start",
+        "ProcessDef": "ProcessDef_EJr7eSYmNZ"
+    },
+    "Activity__DRtWNq5zW": {
+        "Id": "Activity__DRtWNq5zW",
+        "Kind": "Activity",
+        "NodeType": "EndEvent",
+        "Name": "Completed",
+        "ProcessDef": "ProcessDef_EJr7eSYmNZ"
+    },
+    "Row_qLquZEvqIi": {
+        "Id": "Row_qLquZEvqIi",
+        "Kind": "Row",
+        "Button": "Patient_Registration_Process"
+    },
+    "Criteria_vYK46MzzD6": {
+        "Id": "Criteria_vYK46MzzD6",
+        "Kind": "Criteria",
+        "FieldValidation": "Patient_Name",
+        "Criteria::Condition": [
+            "Condition_g_ROZZFaPF"
+        ]
+    },
+    "Condition_g_ROZZFaPF": {
+        "Id": "Condition_g_ROZZFaPF",
+        "Kind": "Condition",
+        "Operator": "MIN_LENGTH",
+        "HasArguments": true,
+        "Criteria": "Criteria_vYK46MzzD6",
+        "RHSType": "Value",
+        "RHSValue": "5",
+        "ErrorMessage": "Material name must be at least 5 characters long."
+    },
+    "Column_Q7RhDTDv7X": {
+        "Id": "Column_Q7RhDTDv7X",
+        "Kind": "Column",
+        "Type": "Field",
+        "Start": 2,
+        "End": 4,
+        "Row": "Row_PuODiTizd2",
+        "Column::Field": [
+            "Patient_Description"
+        ]
+    },
+    "Column_Gkl63XRMrK": {
+        "Id": "Column_Gkl63XRMrK",
+        "Kind": "Column",
+        "Type": "Field",
+        "Start": 4,
+        "End": 6,
+        "Row": "Row_PuODiTizd2",
+        "Column::Field": [
+            "Patient_Age"
+        ]
+    },
+    "Criteria_Evrzj7TkWV": {
+        "Id": "Criteria_Evrzj7TkWV",
+        "Kind": "Criteria",
+        "FieldValidation": "Patient_Age",
+        "Criteria::Condition": [
+            "Condition_qaysIjQ0pF"
+        ]
+    },
+    "Condition_qaysIjQ0pF": {
+        "Id": "Condition_qaysIjQ0pF",
+        "Kind": "Condition",
+        "Operator": "GREATER_THAN",
+        "HasArguments": true,
+        "Criteria": "Criteria_Evrzj7TkWV",
+        "RHSType": "Value",
+        "ErrorMessage": "Age must be greater than 18.",
+        "RHSValue": "18"
+    },
+    "Row_Yf-rskadq2": {
+        "Id": "Row_Yf-rskadq2",
+        "Kind": "Row",
+        "Column": "Column_DTM-qPAKrB",
+        "Row::Column": [
+            "Column_Lz44bdCHM-",
+            "Column_iXcez-wYci",
+            "Column_QqJ5yd4ky1"
+        ]
+    },
+    "Column_Lz44bdCHM-": {
+        "Id": "Column_Lz44bdCHM-",
+        "Kind": "Column",
+        "Type": "Field",
+        "Start": 0,
+        "End": 2,
+        "Row": "Row_Yf-rskadq2",
+        "Column::Field": [
+            "Registration_Date"
+        ]
+    },
+    "Patient_Name": {
+        "Id": "Patient_Name",
+        "Kind": "Field",
+        "Type": "Text",
+        "CreatedAt": "2025-03-18T16:02:41.277Z",
+        "Model": "Patient_Registration_Process",
+        "Column": "Column_gYA15G1Fy4",
+        "Name": "Patient Name",
+        "Required": true,
+        "FieldValidation::Criteria": [
+            "Criteria_vYK46MzzD6"
+        ]
+    },
+    "Patient_Description": {
+        "Id": "Patient_Description",
+        "Kind": "Field",
+        "Type": "Textarea",
+        "CreatedAt": "2025-03-18T16:03:21.383Z",
+        "Model": "Patient_Registration_Process",
+        "Column": "Column_Q7RhDTDv7X",
+        "Name": "Patient Description",
+        "Required": true
+    },
+    "Patient_Age": {
+        "Id": "Patient_Age",
+        "Kind": "Field",
+        "Type": "Number",
+        "CreatedAt": "2025-03-18T16:03:36.825Z",
+        "Model": "Patient_Registration_Process",
+        "Column": "Column_Gkl63XRMrK",
+        "Required": true,
+        "FieldValidation::Criteria": [
+            "Criteria_Evrzj7TkWV"
+        ],
+        "Name": "Patient Age"
+    },
+    "Registration_Date": {
+        "Id": "Registration_Date",
+        "Kind": "Field",
+        "Type": "Date",
+        "CreatedAt": "2025-03-18T16:04:12.275Z",
+        "Model": "Patient_Registration_Process",
+        "Column": "Column_Lz44bdCHM-",
+        "Name": "Registration Date",
+        "Required": true
+    },
+    "Column_iXcez-wYci": {
+        "Id": "Column_iXcez-wYci",
+        "Kind": "Column",
+        "Type": "Field",
+        "Start": 2,
+        "End": 4,
+        "Row": "Row_Yf-rskadq2",
+        "Column::Field": [
+            "Department"
+        ]
+    },
+    "Department": {
+        "Id": "Department",
+        "Kind": "Field",
+        "Type": "Select",
+        "CreatedAt": "2025-03-19T02:08:32.212Z",
+        "Model": "Patient_Registration_Process",
+        "Column": "Column_iXcez-wYci",
+        "Name": "Department",
+        "DatasourceType": "Dataset",
+        "Field::QueryDefinition": [
+            "QueryDefinition_XY3EbmAzdP"
+        ]
+    },
+    "QueryDefinition_XY3EbmAzdP": {
+        "Id": "QueryDefinition_XY3EbmAzdP",
+        "Kind": "QueryDefinition",
+        "Field": "Department",
+        "LHSModel": "Patient_Registration_Departments",
+        "FlowType": "Dataset",
+        "LookupField": [
+            {
+                "Type": "Text",
+                "Name": "Department",
+                "Id": "Untitled_field"
+            }
+        ],
+        "SortBy": [
+            {
+                "Field": "Untitled_field",
+                "IsDescending": false
+            }
+        ]
+    },
+    "Column_QqJ5yd4ky1": {
+        "Id": "Column_QqJ5yd4ky1",
+        "Kind": "Column",
+        "Type": "Field",
+        "Start": 4,
+        "End": 6,
+        "Row": "Row_Yf-rskadq2",
+        "Column::Field": [
+            "Is_Emergency"
+        ]
+    },
+    "Is_Emergency": {
+        "Id": "Is_Emergency",
+        "Kind": "Field",
+        "Type": "Boolean",
+        "CreatedAt": "2025-03-19T02:13:07.402Z",
+        "Model": "Patient_Registration_Process",
+        "Column": "Column_QqJ5yd4ky1",
+        "Name": "Is Emergency"
+    },
+    "Row_r5USfUbBCC": {
+        "Id": "Row_r5USfUbBCC",
+        "Kind": "Row",
+        "Column": "Column_DTM-qPAKrB",
+        "Row::Column": [
+            "Column_zTnnTWBhfE",
+            "Column_9tVdals9HZ",
+            "Column_nqU3vlL2oV"
+        ]
+    },
+    "Column_zTnnTWBhfE": {
+        "Id": "Column_zTnnTWBhfE",
+        "Kind": "Column",
+        "Type": "Field",
+        "Start": 0,
+        "End": 2,
+        "Row": "Row_r5USfUbBCC",
+        "Column::Field": [
+            "Patient_Email"
+        ]
+    },
+    "Patient_Email": {
+        "Id": "Patient_Email",
+        "Kind": "Field",
+        "Type": "Email",
+        "CreatedAt": "2025-03-19T02:13:41.178Z",
+        "Model": "Patient_Registration_Process",
+        "Column": "Column_zTnnTWBhfE",
+        "Name": "Patient Email",
+        "Required": true
+    },
+    "Column_9tVdals9HZ": {
+        "Id": "Column_9tVdals9HZ",
+        "Kind": "Column",
+        "Type": "Field",
+        "Start": 2,
+        "End": 4,
+        "Row": "Row_r5USfUbBCC",
+        "Column::Field": [
+            "Payment_method"
+        ]
+    },
+    "Payment_method": {
+        "Id": "Payment_method",
+        "Kind": "Field",
+        "Type": "Select",
+        "CreatedAt": "2025-03-19T02:14:13.529Z",
+        "Model": "Patient_Registration_Process",
+        "Column": "Column_9tVdals9HZ",
+        "Widget": "Radio",
+        "Name": "Payment method",
+        "Required": true,
+        "ReferredList": "Patient_Registration_PaymentMethods"
+    },
+    "Column_nqU3vlL2oV": {
+        "Id": "Column_nqU3vlL2oV",
+        "Kind": "Column",
+        "Type": "Field",
+        "Start": 4,
+        "End": 6,
+        "Row": "Row_r5USfUbBCC",
+        "Column::Field": [
+            "Bill_Amount"
+        ]
+    },
+    "Bill_Amount": {
+        "Id": "Bill_Amount",
+        "Kind": "Field",
+        "Type": "Currency",
+        "CreatedAt": "2025-03-19T02:14:56.268Z",
+        "Model": "Patient_Registration_Process",
+        "Column": "Column_nqU3vlL2oV",
+        "CurrencyTypes": [
+            "INR"
+        ],
+        "Name": "Bill Amount",
+        "Required": true
+    },
+    "Row_54DxDOiBYX": {
+        "Id": "Row_54DxDOiBYX",
+        "Kind": "Row",
+        "Column": "Column_DTM-qPAKrB",
+        "Row::Column": [
+            "Column_uujq5IbDjn",
+            "Column_ct4j8Mwc_Q",
+            "Column_ENV58RTNQ_"
+        ]
+    },
+    "Column_uujq5IbDjn": {
+        "Id": "Column_uujq5IbDjn",
+        "Kind": "Column",
+        "Type": "Field",
+        "Start": 0,
+        "End": 2,
+        "Row": "Row_54DxDOiBYX",
+        "Column::Field": [
+            "services_availed"
+        ]
+    },
+    "services_availed": {
+        "Id": "services_availed",
+        "Kind": "Field",
+        "Type": "Multiselect",
+        "CreatedAt": "2025-03-19T02:17:52.903Z",
+        "Model": "Patient_Registration_Process",
+        "Column": "Column_uujq5IbDjn",
+        "Name": "services availed",
+        "Required": true,
+        "ReferredList": "MedicalBilling_Services"
+    },
+    "Column_ct4j8Mwc_Q": {
+        "Id": "Column_ct4j8Mwc_Q",
+        "Kind": "Column",
+        "Type": "Field",
+        "Start": 2,
+        "End": 4,
+        "Row": "Row_54DxDOiBYX",
+        "Column::Field": [
+            "Has_Previous_Medical_History"
+        ]
+    },
+    "Has_Previous_Medical_History": {
+        "Id": "Has_Previous_Medical_History",
+        "Kind": "Field",
+        "Type": "Checkbox",
+        "CreatedAt": "2025-03-19T02:18:29.827Z",
+        "Model": "Patient_Registration_Process",
+        "Column": "Column_ct4j8Mwc_Q",
+        "Name": "Has Previous Medical History",
+        "ReferredList": "MedicalBilling_PreviousHistory",
+        "Required": true
+    },
+    "Column_ENV58RTNQ_": {
+        "Id": "Column_ENV58RTNQ_",
+        "Kind": "Column",
+        "Type": "Field",
+        "Start": 4,
+        "End": 6,
+        "Row": "Row_54DxDOiBYX",
+        "Column::Field": [
+            "Referring_Doctor"
+        ]
+    },
+    "QueryDefinition_EjroBIEOlX": {
+        "Id": "QueryDefinition_EjroBIEOlX",
+        "Kind": "QueryDefinition",
+        "Field": "Referring_Doctor",
+        "LHSModel": "MedicalBilling_Doctors",
+        "LookupField": [
+            {
+                "Type": "Text",
+                "Name": "Doctor Name",
+                "Id": "Untitled_field"
+            }
+        ],
+        "FlowType": "Dataset"
+    },
+    "Referring_Doctor": {
+        "Id": "Referring_Doctor",
+        "Kind": "Field",
+        "Type": "Reference",
+        "CreatedAt": "2025-03-19T02:19:43.376Z",
+        "Model": "Patient_Registration_Process",
+        "Column": "Column_ENV58RTNQ_",
+        "Field::QueryDefinition": [
+            "QueryDefinition_EjroBIEOlX"
+        ],
+        "Name": "Referring Doctor",
+        "Required": true
+    },
+    "Row_RJTb4f0A9u": {
+        "Id": "Row_RJTb4f0A9u",
+        "Kind": "Row",
+        "Column": "Column_DTM-qPAKrB",
+        "Row::Column": [
+            "Column_UquoTsVSCL"
+        ]
+    },
+    "Column_UquoTsVSCL": {
+        "Id": "Column_UquoTsVSCL",
+        "Kind": "Column",
+        "Type": "Field",
+        "Start": 0,
+        "End": 2,
+        "Row": "Row_RJTb4f0A9u",
+        "Column::Field": [
+            "Medical_Records"
+        ]
+    },
+    "Medical_Records": {
+        "Id": "Medical_Records",
+        "Kind": "Field",
+        "Type": "Attachment",
+        "CreatedAt": "2025-03-19T02:20:27.184Z",
+        "Model": "Patient_Registration_Process",
+        "Column": "Column_UquoTsVSCL",
+        "Name": "Medical Records",
+        "Required": true
+    },
+    "Row__49WafNayV": {
+        "Id": "Row__49WafNayV",
+        "Kind": "Row",
+        "Model": "Patient_Registration_Process",
+        "Row::Column": [
+            "Column_UslEdfd6Yr"
+        ]
+    },
+    "Column_UslEdfd6Yr": {
+        "Id": "Column_UslEdfd6Yr",
+        "Kind": "Column",
+        "Type": "Model",
+        "Start": 0,
+        "End": 6,
+        "Name": "Patients Health care",
+        "AllowImport": false,
+        "Row": "Row__49WafNayV",
+        "Column::Model": [
+            "Patients_Health_care"
+        ]
+    },
+    "Row_7QfXryfSln": {
+        "Id": "Row_7QfXryfSln",
+        "Kind": "Row",
+        "Model": "Patients_Health_care",
+        "Row::Column": [
+            "Column_q00ceLeg49",
+            "Column_swosuMx0lw",
+            "Column_ZoH4haJbHZ",
+            "Column_3HBoKBwnNF"
+        ]
+    },
+    "Column_q00ceLeg49": {
+        "Id": "Column_q00ceLeg49",
+        "Kind": "Column",
+        "Type": "Field",
+        "Row": "Row_7QfXryfSln",
+        "Start": 0,
+        "End": 0,
+        "Column::Field": [
+            "Items"
+        ]
+    },
+    "Column_swosuMx0lw": {
+        "Id": "Column_swosuMx0lw",
+        "Kind": "Column",
+        "Type": "Field",
+        "Row": "Row_7QfXryfSln",
+        "Start": 0,
+        "End": 0,
+        "Column::Field": [
+            "List_1"
+        ]
+    },
+    "List_1": {
+        "Id": "List_1",
+        "Kind": "Field",
+        "Type": "Text",
+        "CreatedAt": "2025-03-19T02:21:55.282Z",
+        "Model": "Patients_Health_care",
+        "Column": "Column_swosuMx0lw",
+        "Name": "List",
+        "Required": true
+    },
+    "Items": {
+        "Id": "Items",
+        "Kind": "Field",
+        "Type": "Text",
+        "CreatedAt": "2025-03-19T02:21:37.598Z",
+        "Model": "Patients_Health_care",
+        "Column": "Column_q00ceLeg49",
+        "Name": "Items"
+    },
+    "Column_ZoH4haJbHZ": {
+        "Id": "Column_ZoH4haJbHZ",
+        "Kind": "Column",
+        "Type": "Field",
+        "Row": "Row_7QfXryfSln",
+        "Start": 0,
+        "End": 0,
+        "Column::Field": [
+            "Quantity"
+        ]
+    },
+    "Quantity": {
+        "Id": "Quantity",
+        "Kind": "Field",
+        "Type": "Number",
+        "CreatedAt": "2025-03-19T02:22:12.014Z",
+        "Model": "Patients_Health_care",
+        "Column": "Column_ZoH4haJbHZ",
+        "Name": "Quantity ",
+        "Required": true
+    },
+    "Column_3HBoKBwnNF": {
+        "Id": "Column_3HBoKBwnNF",
+        "Kind": "Column",
+        "Type": "Field",
+        "Row": "Row_7QfXryfSln",
+        "Start": 0,
+        "End": 0,
+        "Column::Field": [
+            "Current_Date_1"
+        ]
+    },
+    "Current_Date_1": {
+        "Id": "Current_Date_1",
+        "Kind": "Field",
+        "Type": "Date",
+        "CreatedAt": "2025-03-19T02:22:29.415Z",
+        "Model": "Patients_Health_care",
+        "Column": "Column_3HBoKBwnNF",
+        "Name": "Current Date"
+    },
+    "Patients_Health_care": {
+        "Id": "Patients_Health_care",
+        "Kind": "Model",
+        "Model": "Patient_Registration_Process",
+        "Name": "Patients Health care",
+        "CreatedAt": "2025-03-19T02:21:37.597Z",
+        "Column": "Column_UslEdfd6Yr",
+        "Model::Row": [
+            "Row_7QfXryfSln"
+        ],
+        "Model::Field": [
+            "Items",
+            "List_1",
+            "Quantity",
+            "Current_Date_1"
+        ]
+    },
+    "Activity_cpTDyo6Mhw": {
+        "Id": "Activity_cpTDyo6Mhw",
+        "Kind": "Activity",
+        "NodeType": "UserTask",
+        "ProcessDef": "ProcessDef_EJr7eSYmNZ",
+        "Name": "First Approval",
+        "Activity::Resource": [
+            "Resource_nlWY4EeTaH"
+        ]
+    },
+    "Resource_nlWY4EeTaH": {
+        "Id": "Resource_nlWY4EeTaH",
+        "Kind": "Resource",
+        "ValueType": "User",
+        "DisplayValue": "elizabeth_brown",
+        "Value": "UsB0vUTnVzq8",
+        "Activity": "Activity_cpTDyo6Mhw"
+    },
+    "Activity_KN1P5KY8dY": {
+        "Id": "Activity_KN1P5KY8dY",
+        "Kind": "Activity",
+        "NodeType": "UserTask",
+        "ProcessDef": "ProcessDef_EJr7eSYmNZ",
+        "Name": "Second Approval",
+        "Activity::Resource": [
+            "Resource_k1bO7twMsj",
+            "Resource_FO9btNBWQp"
+        ]
+    },
+    "Resource_k1bO7twMsj": {
+        "Id": "Resource_k1bO7twMsj",
+        "Kind": "Resource",
+        "ValueType": "User",
+        "DisplayValue": "elizabeth_brown",
+        "Value": "UsB0vUTnVzq8",
+        "Activity": "Activity_KN1P5KY8dY"
+    },
+    "Resource_FO9btNBWQp": {
+        "Id": "Resource_FO9btNBWQp",
+        "Kind": "Resource",
+        "ValueType": "User",
+        "DisplayValue": "karen_taylor",
+        "Value": "UsB0vEx7kE9r",
+        "Activity": "Activity_KN1P5KY8dY"
+    }
+  }

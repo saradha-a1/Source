@@ -1,0 +1,646 @@
+{
+    "Root": "Smart Accessories",
+    "Smart Accessories": {
+        "Id": "Smart Accessories",
+        "Name": "Smart Accessories",
+        "Kind": "Model",
+        "FlowType": "Process",
+        "Description": "",
+        "Model::Row": [
+            "Row_MnmLTlmiBz",
+            "Row_SnxmwFrpc7"
+        ],
+        "Model::Field": [
+            "Accessory_Name",
+            "Accessory_Description",
+            "Stock_Availability",
+            "Launch_Date",
+            "Supplier",
+            "Is_Discounted",
+            "Supplier_Contact_Email",
+            "Accessory_Type",
+            "Price",
+            "Available_Colors",
+            "Special_Features",
+            "Warehouse_Location",
+            "Product_Image"
+        ],
+        "Model::ProcessDef": [
+            "ProcessDef_Odwb-F3sCD"
+        ],
+        "RootProcessDef": "ProcessDef_Odwb-F3sCD",
+        "Button::Row": [
+            "Row_JNa8QHJUJS"
+        ],
+        "Model::Model": [
+            "Child_Table__1"
+        ]
+    },
+    "Row_MnmLTlmiBz": {
+        "Id": "Row_MnmLTlmiBz",
+        "Kind": "Row",
+        "Model": "Smart Accessories",
+        "Row::Column": [
+            "Column_1qYIiDL8Gv"
+        ]
+    },
+    "Column_1qYIiDL8Gv": {
+        "Id": "Column_1qYIiDL8Gv",
+        "Kind": "Column",
+        "Type": "Section",
+        "Name": "Process",
+        "Start": 0,
+        "End": 6,
+        "Row": "Row_MnmLTlmiBz",
+        "Column::Row": [
+            "Row_UwYhZfIbvR",
+            "Row_pdXSIm1DZ8",
+            "Row_I-whMlL6pt",
+            "Row_qUYgIQORPV",
+            "Row_yucVvwvNe1"
+        ]
+    },
+    "Row_UwYhZfIbvR": {
+        "Id": "Row_UwYhZfIbvR",
+        "Kind": "Row",
+        "Column": "Column_1qYIiDL8Gv",
+        "Row::Column": [
+            "Column_ZB3de8NOoi",
+            "Column_8te-DR79N9",
+            "Column_ZTCmkxIXIE"
+        ]
+    },
+    "Column_ZB3de8NOoi": {
+        "Id": "Column_ZB3de8NOoi",
+        "Kind": "Column",
+        "Type": "Field",
+        "Start": 0,
+        "End": 2,
+        "Row": "Row_UwYhZfIbvR",
+        "Column::Field": [
+            "Accessory_Name"
+        ]
+    },
+    "ProcessDef_Odwb-F3sCD": {
+        "Id": "ProcessDef_Odwb-F3sCD",
+        "Kind": "ProcessDef",
+        "WorkflowType": "Sequence",
+        "Model": "Smart Accessories",
+        "ProcessDef::Activity": [
+            "Activity_tw-AGZQAmC",
+            "Activity_DRRB3Yjj5-",
+            "Activity_3tRQ96Uqfg",
+            "Activity_4MnFVgyvKT"
+        ]
+    },
+    "Activity_tw-AGZQAmC": {
+        "Id": "Activity_tw-AGZQAmC",
+        "Kind": "Activity",
+        "NodeType": "StartEvent",
+        "Name": "Start",
+        "ProcessDef": "ProcessDef_Odwb-F3sCD"
+    },
+    "Activity_4MnFVgyvKT": {
+        "Id": "Activity_4MnFVgyvKT",
+        "Kind": "Activity",
+        "NodeType": "EndEvent",
+        "Name": "Completed",
+        "ProcessDef": "ProcessDef_Odwb-F3sCD"
+    },
+    "Row_JNa8QHJUJS": {
+        "Id": "Row_JNa8QHJUJS",
+        "Kind": "Row",
+        "Button": "Smart Accessories"
+    },
+    "Accessory_Name": {
+        "Id": "Accessory_Name",
+        "Kind": "Field",
+        "Type": "Text",
+        "CreatedAt": "2025-03-20T17:41:45.813Z",
+        "Model": "Smart Accessories",
+        "Column": "Column_ZB3de8NOoi",
+        "Name": "Accessory_Name",
+        "FieldValidation::Criteria": [
+            "Criteria_Nt3nA5qYQV"
+        ],
+        "Required": true
+    },
+    "Criteria_Nt3nA5qYQV": {
+        "Id": "Criteria_Nt3nA5qYQV",
+        "Kind": "Criteria",
+        "FieldValidation": "Accessory_Name",
+        "Criteria::Condition": [
+            "Condition_4EM7TE6vR4"
+        ]
+    },
+    "Condition_4EM7TE6vR4": {
+        "Id": "Condition_4EM7TE6vR4",
+        "Kind": "Condition",
+        "Operator": "MIN_LENGTH",
+        "HasArguments": true,
+        "Criteria": "Criteria_Nt3nA5qYQV",
+        "RHSType": "Value",
+        "RHSValue": 3,
+        "ErrorMessage": "Name must be at least 3 characters."
+    },
+    "Column_8te-DR79N9": {
+        "Id": "Column_8te-DR79N9",
+        "Kind": "Column",
+        "Type": "Field",
+        "Start": 2,
+        "End": 4,
+        "Row": "Row_UwYhZfIbvR",
+        "Column::Field": [
+            "Accessory_Description"
+        ]
+    },
+    "Accessory_Description": {
+        "Id": "Accessory_Description",
+        "Kind": "Field",
+        "Type": "Textarea",
+        "CreatedAt": "2025-03-23T16:37:13.360Z",
+        "Model": "Smart Accessories",
+        "Column": "Column_8te-DR79N9",
+        "Name": "Accessory_Description",
+        "Required": true,
+        "AllowFormatting": true
+    },
+    "Column_ZTCmkxIXIE": {
+        "Id": "Column_ZTCmkxIXIE",
+        "Kind": "Column",
+        "Type": "Field",
+        "Start": 4,
+        "End": 6,
+        "Row": "Row_UwYhZfIbvR",
+        "Column::Field": [
+            "Stock_Availability"
+        ]
+    },
+    "Stock_Availability": {
+        "Id": "Stock_Availability",
+        "Kind": "Field",
+        "Type": "Number",
+        "CreatedAt": "2025-03-23T16:37:39.154Z",
+        "Model": "Smart Accessories",
+        "Column": "Column_ZTCmkxIXIE",
+        "Name": "Stock_Availability",
+        "FieldValidation::Criteria": [
+            "Criteria_Np6czIqnwS"
+        ],
+        "Required": true
+    },
+    "Criteria_Np6czIqnwS": {
+        "Id": "Criteria_Np6czIqnwS",
+        "Kind": "Criteria",
+        "FieldValidation": "Stock_Availability",
+        "Criteria::Condition": [
+            "Condition_V1VZ8s7pNN"
+        ]
+    },
+    "Condition_V1VZ8s7pNN": {
+        "Id": "Condition_V1VZ8s7pNN",
+        "Kind": "Condition",
+        "Operator": "GREATER_THAN",
+        "HasArguments": true,
+        "Criteria": "Criteria_Np6czIqnwS",
+        "RHSType": "Value",
+        "RHSValue": 0,
+        "ErrorMessage": "Stock must be greater than 0."
+    },
+    "Row_pdXSIm1DZ8": {
+        "Id": "Row_pdXSIm1DZ8",
+        "Kind": "Row",
+        "Column": "Column_1qYIiDL8Gv",
+        "Row::Column": [
+            "Column_DvQZy20Ohd",
+            "Column_OE22KbDrjX",
+            "Column_2DU26oWc9d"
+        ]
+    },
+    "Column_DvQZy20Ohd": {
+        "Id": "Column_DvQZy20Ohd",
+        "Kind": "Column",
+        "Type": "Field",
+        "Start": 0,
+        "End": 2,
+        "Row": "Row_pdXSIm1DZ8",
+        "Column::Field": [
+            "Launch_Date"
+        ]
+    },
+    "Launch_Date": {
+        "Id": "Launch_Date",
+        "Kind": "Field",
+        "Type": "Date",
+        "CreatedAt": "2025-03-23T16:38:32.168Z",
+        "Model": "Smart Accessories",
+        "Name": "Launch_Date",
+        "Column": "Column_DvQZy20Ohd",
+        "Required": true
+    },
+    "Column_OE22KbDrjX": {
+        "Id": "Column_OE22KbDrjX",
+        "Kind": "Column",
+        "Type": "Field",
+        "Start": 2,
+        "End": 4,
+        "Row": "Row_pdXSIm1DZ8",
+        "Column::Field": [
+            "Supplier"
+        ]
+    },
+    "Supplier": {
+        "Id": "Supplier",
+        "Kind": "Field",
+        "Type": "Select",
+        "CreatedAt": "2025-03-24T16:25:57.894Z",
+        "Model": "Smart Accessories",
+        "Column": "Column_OE22KbDrjX",
+        "Name": "Supplier",
+        "DatasourceType": "Dataset",
+        "Field::QueryDefinition": [
+            "QueryDefinition_aqkUI2fcnk"
+        ]
+    },
+    "QueryDefinition_aqkUI2fcnk": {
+        "Id": "QueryDefinition_aqkUI2fcnk",
+        "Kind": "QueryDefinition",
+        "Field": "Supplier",
+        "LHSModel": "Smart_Accessories_Suppliers",
+        "FlowType": "Dataset",
+        "LookupField": [
+            {
+                "Type": "Text",
+                "Name": "Supplier_Name",
+                "Id": "Untitled_field"
+            }
+        ],
+        "SortBy": [
+            {
+                "Field": "Untitled_field",
+                "IsDescending": false
+            }
+        ]
+    },
+    "Column_2DU26oWc9d": {
+        "Id": "Column_2DU26oWc9d",
+        "Kind": "Column",
+        "Type": "Field",
+        "Start": 4,
+        "End": 6,
+        "Row": "Row_pdXSIm1DZ8",
+        "Column::Field": [
+            "Is_Discounted"
+        ]
+    },
+    "Is_Discounted": {
+        "Id": "Is_Discounted",
+        "Kind": "Field",
+        "Type": "Boolean",
+        "CreatedAt": "2025-03-24T16:27:14.718Z",
+        "Model": "Smart Accessories",
+        "Column": "Column_2DU26oWc9d",
+        "Name": "Is_Discounted"
+    },
+    "Row_I-whMlL6pt": {
+        "Id": "Row_I-whMlL6pt",
+        "Kind": "Row",
+        "Column": "Column_1qYIiDL8Gv",
+        "Row::Column": [
+            "Column_azuburBTL2",
+            "Column_-0J0ON1p4Q",
+            "Column_X5iqjZosYj"
+        ]
+    },
+    "Column_azuburBTL2": {
+        "Id": "Column_azuburBTL2",
+        "Kind": "Column",
+        "Type": "Field",
+        "Start": 0,
+        "End": 2,
+        "Row": "Row_I-whMlL6pt",
+        "Column::Field": [
+            "Supplier_Contact_Email"
+        ]
+    },
+    "Supplier_Contact_Email": {
+        "Id": "Supplier_Contact_Email",
+        "Kind": "Field",
+        "Type": "Email",
+        "CreatedAt": "2025-03-24T16:27:41.469Z",
+        "Model": "Smart Accessories",
+        "Column": "Column_azuburBTL2",
+        "Name": "Supplier_Contact_Email",
+        "Required": true
+    },
+    "Column_-0J0ON1p4Q": {
+        "Id": "Column_-0J0ON1p4Q",
+        "Kind": "Column",
+        "Type": "Field",
+        "Start": 2,
+        "End": 4,
+        "Row": "Row_I-whMlL6pt",
+        "Column::Field": [
+            "Accessory_Type"
+        ]
+    },
+    "Accessory_Type": {
+        "Id": "Accessory_Type",
+        "Kind": "Field",
+        "Type": "Select",
+        "CreatedAt": "2025-03-24T16:28:13.040Z",
+        "Model": "Smart Accessories",
+        "Column": "Column_-0J0ON1p4Q",
+        "Widget": "Radio",
+        "Name": "Accessory_Type",
+        "Required": false,
+        "ReferredList": "Smart_Accessories_Types"
+    },
+    "Column_X5iqjZosYj": {
+        "Id": "Column_X5iqjZosYj",
+        "Kind": "Column",
+        "Type": "Field",
+        "Start": 4,
+        "End": 6,
+        "Row": "Row_I-whMlL6pt",
+        "Column::Field": [
+            "Price"
+        ]
+    },
+    "Price": {
+        "Id": "Price",
+        "Kind": "Field",
+        "Type": "Currency",
+        "CreatedAt": "2025-03-24T16:28:52.846Z",
+        "Model": "Smart Accessories",
+        "Column": "Column_X5iqjZosYj",
+        "CurrencyTypes": [
+            "INR"
+        ],
+        "Name": "Price",
+        "Required": true
+    },
+    "Row_qUYgIQORPV": {
+        "Id": "Row_qUYgIQORPV",
+        "Kind": "Row",
+        "Column": "Column_1qYIiDL8Gv",
+        "Row::Column": [
+            "Column_3UOrxmua54",
+            "Column_k9Q6yS4WZW",
+            "Column_MIY9w-eQO4"
+        ]
+    },
+    "Column_3UOrxmua54": {
+        "Id": "Column_3UOrxmua54",
+        "Kind": "Column",
+        "Type": "Field",
+        "Start": 0,
+        "End": 2,
+        "Row": "Row_qUYgIQORPV",
+        "Column::Field": [
+            "Available_Colors"
+        ]
+    },
+    "Available_Colors": {
+        "Id": "Available_Colors",
+        "Kind": "Field",
+        "Type": "Multiselect",
+        "CreatedAt": "2025-03-24T16:29:37.336Z",
+        "Model": "Smart Accessories",
+        "Name": "Available_Colors",
+        "Column": "Column_3UOrxmua54",
+        "Required": true,
+        "ReferredList": "Smart_Accessories_Colors"
+    },
+    "Column_k9Q6yS4WZW": {
+        "Id": "Column_k9Q6yS4WZW",
+        "Kind": "Column",
+        "Type": "Field",
+        "Start": 2,
+        "End": 4,
+        "Row": "Row_qUYgIQORPV",
+        "Column::Field": [
+            "Special_Features"
+        ]
+    },
+    "Special_Features": {
+        "Id": "Special_Features",
+        "Kind": "Field",
+        "Type": "Checkbox",
+        "CreatedAt": "2025-03-24T16:30:42.585Z",
+        "Model": "Smart Accessories",
+        "Column": "Column_k9Q6yS4WZW",
+        "Name": "Special_Features",
+        "ReferredList": "Smart_Accessories_Features"
+    },
+    "Column_MIY9w-eQO4": {
+        "Id": "Column_MIY9w-eQO4",
+        "Kind": "Column",
+        "Type": "Field",
+        "Start": 4,
+        "End": 6,
+        "Row": "Row_qUYgIQORPV",
+        "Column::Field": [
+            "Warehouse_Location"
+        ]
+    },
+    "QueryDefinition_tnAgyvYplC": {
+        "Id": "QueryDefinition_tnAgyvYplC",
+        "Kind": "QueryDefinition",
+        "Field": "Warehouse_Location",
+        "LHSModel": "Smart_Accessories_Locations",
+        "LookupField": [
+            {
+                "Type": "Text",
+                "Name": "Location_Name",
+                "Id": "Untitled_field"
+            }
+        ],
+        "FlowType": "Dataset"
+    },
+    "Warehouse_Location": {
+        "Id": "Warehouse_Location",
+        "Kind": "Field",
+        "Type": "Reference",
+        "CreatedAt": "2025-03-24T16:31:17.553Z",
+        "Model": "Smart Accessories",
+        "Name": "Warehouse_Location",
+        "Column": "Column_MIY9w-eQO4",
+        "Field::QueryDefinition": [
+            "QueryDefinition_tnAgyvYplC"
+        ],
+        "Required": true
+    },
+    "Row_yucVvwvNe1": {
+        "Id": "Row_yucVvwvNe1",
+        "Kind": "Row",
+        "Column": "Column_1qYIiDL8Gv",
+        "Row::Column": [
+            "Column_9Ib9WWY-XB"
+        ]
+    },
+    "Column_9Ib9WWY-XB": {
+        "Id": "Column_9Ib9WWY-XB",
+        "Kind": "Column",
+        "Type": "Field",
+        "Start": 0,
+        "End": 2,
+        "Row": "Row_yucVvwvNe1",
+        "Column::Field": [
+            "Product_Image"
+        ]
+    },
+    "Product_Image": {
+        "Id": "Product_Image",
+        "Kind": "Field",
+        "Type": "Attachment",
+        "CreatedAt": "2025-03-24T16:31:55.864Z",
+        "Model": "Smart Accessories",
+        "Column": "Column_9Ib9WWY-XB",
+        "Name": "Product_Image",
+        "Required": true
+    },
+    "Row_SnxmwFrpc7": {
+        "Id": "Row_SnxmwFrpc7",
+        "Kind": "Row",
+        "Model": "text",
+        "Row::Column": [
+            "Column__2zi_3U7uP"
+        ]
+    },
+    "Column__2zi_3U7uP": {
+        "Id": "Column__2zi_3U7uP",
+        "Kind": "Column",
+        "Type": "Model",
+        "Start": 0,
+        "End": 6,
+        "Name": "Child Table - 1",
+        "AllowImport": false,
+        "Row": "Row_SnxmwFrpc7",
+        "Column::Model": [
+            "Child_Table__1"
+        ]
+    },
+    "Row_bXnfv5bpR0": {
+        "Id": "Row_bXnfv5bpR0",
+        "Kind": "Row",
+        "Model": "Child_Table__1",
+        "Row::Column": [
+            "Column_AvNr5vQ-Li",
+            "Column_VS675_AIsZ",
+            "Column_QVhAhx5-iE"
+        ]
+    },
+    "Column_AvNr5vQ-Li": {
+        "Id": "Column_AvNr5vQ-Li",
+        "Kind": "Column",
+        "Type": "Field",
+        "Row": "Row_bXnfv5bpR0",
+        "Start": 0,
+        "End": 0,
+        "Column::Field": [
+            "Name_2"
+        ]
+    },
+    "Name_2": {
+        "Id": "Name_2",
+        "Kind": "Field",
+        "Type": "Text",
+        "CreatedAt": "2025-03-24T16:33:32.823Z",
+        "Model": "Child_Table__1",
+        "Column": "Column_AvNr5vQ-Li",
+        "Name": "Name"
+    },
+    "Column_VS675_AIsZ": {
+        "Id": "Column_VS675_AIsZ",
+        "Kind": "Column",
+        "Type": "Field",
+        "Row": "Row_bXnfv5bpR0",
+        "Start": 0,
+        "End": 0,
+        "Column::Field": [
+            "Mobile_Number"
+        ]
+    },
+    "Mobile_Number": {
+        "Id": "Mobile_Number",
+        "Kind": "Field",
+        "Type": "Number",
+        "CreatedAt": "2025-03-24T16:33:41.239Z",
+        "Model": "Child_Table__1",
+        "Column": "Column_VS675_AIsZ",
+        "Name": "Mobile Number"
+    },
+    "Column_QVhAhx5-iE": {
+        "Id": "Column_QVhAhx5-iE",
+        "Kind": "Column",
+        "Type": "Field",
+        "Row": "Row_bXnfv5bpR0",
+        "Start": 0,
+        "End": 0,
+        "Column::Field": [
+            "Date_1"
+        ]
+    },
+    "Date_1": {
+        "Id": "Date_1",
+        "Kind": "Field",
+        "Type": "Date",
+        "CreatedAt": "2025-03-24T16:33:51.752Z",
+        "Model": "Child_Table__1",
+        "Column": "Column_QVhAhx5-iE",
+        "Name": "Date"
+    },
+    "Child_Table__1": {
+        "Id": "Child_Table__1",
+        "Kind": "Model",
+        "Model": "text",
+        "Name": "Child Table - 1",
+        "CreatedAt": "2025-03-24T16:33:32.822Z",
+        "Column": "Column__2zi_3U7uP",
+        "Model::Row": [
+            "Row_bXnfv5bpR0"
+        ],
+        "Model::Field": [
+            "Name_2",
+            "Mobile_Number",
+            "Date_1"
+        ]
+    },
+    "Activity_DRRB3Yjj5-": {
+        "Id": "Activity_DRRB3Yjj5-",
+        "Kind": "Activity",
+        "NodeType": "UserTask",
+        "ProcessDef": "ProcessDef_Odwb-F3sCD",
+        "Name": "First approval",
+        "Activity::Resource": [
+            "Resource_8B1l5wPBFw"
+        ]
+    },
+    "Resource_8B1l5wPBFw": {
+        "Id": "Resource_8B1l5wPBFw",
+        "Kind": "Resource",
+        "ValueType": "User",
+        "DisplayValue": "elizabeth_brown",
+        "Value": "UsB0vUTnVzq8",
+        "Activity": "Activity_DRRB3Yjj5-"
+    },
+    "Activity_3tRQ96Uqfg": {
+        "Id": "Activity_3tRQ96Uqfg",
+        "Kind": "Activity",
+        "NodeType": "UserTask",
+        "ProcessDef": "ProcessDef_Odwb-F3sCD",
+        "Name": "Second approval",
+        "Activity::Resource": [
+            "Resource_tlgs3ZMWvc"
+        ]
+    },
+    "Resource_tlgs3ZMWvc": {
+        "Id": "Resource_tlgs3ZMWvc",
+        "Kind": "Resource",
+        "ValueType": "User",
+        "DisplayValue": "karen_taylor",
+        "Value": "UsB0vEx7kE9r",
+        "Activity": "Activity_3tRQ96Uqfg"
+    }
+}

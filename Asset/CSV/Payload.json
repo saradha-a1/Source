@@ -1,0 +1,266 @@
+{
+    "Root": "{processName}",
+    "{processName}": {
+        "Id": "{processName}",
+        "Name": "{processName}",
+        "Kind": "Model",
+        "FlowType": "Process",
+        "Description": "",
+        "Model::Row": [
+            "Row_yJo5rJ5KdL"
+        ],
+        "Model::Field": [
+            "Fields.FieldName1",
+            "Fields.FieldName2",
+            "Fields.FieldName3",
+            "Fields.FieldName4",
+            "Fields.FieldName5",
+            "Fields.FieldName7"
+        ],
+        "Model::ProcessDef": [
+            "ProcessDef_hntDdmn-SC"
+        ],
+        "RootProcessDef": "ProcessDef_hntDdmn-SC",
+        "Button::Row": [
+            "Row_bVbFyNRXrU"
+        ]
+    },
+    "Row_yJo5rJ5KdL": {
+        "Id": "Row_yJo5rJ5KdL",
+        "Kind": "Row",
+        "Model": "{processName}",
+        "Row::Column": [
+            "Column_Sw8rT6ZYWX"
+        ]
+    },
+    "Column_Sw8rT6ZYWX": {
+        "Id": "Column_Sw8rT6ZYWX",
+        "Kind": "Column",
+        "Type": "Section",
+        "Name": "Untitled Section",
+        "Start": 0,
+        "End": 6,
+        "Row": "Row_yJo5rJ5KdL",
+        "Column::Row": [
+            "Row_4nnzuaFbpM",
+            "Row_DTNi8mpxBn"
+        ]
+    },
+    "Row_4nnzuaFbpM": {
+        "Id": "Row_4nnzuaFbpM",
+        "Kind": "Row",
+        "Column": "Column_Sw8rT6ZYWX",
+        "Row::Column": [
+            "Column_Pl7ObJTRiI",
+            "Column_VyyPeOSiRI",
+            "Column_-nSWRyNEuO"
+        ]
+    },
+    "Column_Pl7ObJTRiI": {
+        "Id": "Column_Pl7ObJTRiI",
+        "Kind": "Column",
+        "Type": "Field",
+        "Start": 0,
+        "End": 2,
+        "Row": "Row_4nnzuaFbpM",
+        "Column::Field": [
+            "{Fields.FieldName1}"
+        ]
+    },
+    "ProcessDef_hntDdmn-SC": {
+        "Id": "ProcessDef_hntDdmn-SC",
+        "Kind": "ProcessDef",
+        "WorkflowType": "Sequence",
+        "Model": "{processName}",
+        "ProcessDef::Activity": [
+            "Activity_HHdO7cQlZt",
+            "Activity_L_mrfiblc9"
+        ]
+    },
+    "Activity_HHdO7cQlZt": {
+        "Id": "Activity_HHdO7cQlZt",
+        "Kind": "Activity",
+        "NodeType": "StartEvent",
+        "Name": "Start",
+        "ProcessDef": "ProcessDef_hntDdmn-SC"
+    },
+    "Activity_L_mrfiblc9": {
+        "Id": "Activity_L_mrfiblc9",
+        "Kind": "Activity",
+        "NodeType": "EndEvent",
+        "Name": "Completed",
+        "ProcessDef": "ProcessDef_hntDdmn-SC"
+    },
+    "Row_bVbFyNRXrU": {
+        "Id": "Row_bVbFyNRXrU",
+        "Kind": "Row",
+        "Button": "{processName}"
+    },
+    "Column_VyyPeOSiRI": {
+        "Id": "Column_VyyPeOSiRI",
+        "Kind": "Column",
+        "Type": "Field",
+        "Start": 2,
+        "End": 4,
+        "Row": "Row_4nnzuaFbpM",
+        "Column::Field": [
+            "{Fields.FieldName2}"
+        ]
+    },
+    "Row_DTNi8mpxBn": {
+        "Id": "Row_DTNi8mpxBn",
+        "Kind": "Row",
+        "Column": "Column_Sw8rT6ZYWX",
+        "Row::Column": [
+            "Column_X3mxHvv85Z",
+            "Column_18zpkrx4GX",
+            "Column_G6Qr0XFsUd"
+        ]
+    },
+    "Column_X3mxHvv85Z": {
+        "Id": "Column_X3mxHvv85Z",
+        "Kind": "Column",
+        "Type": "Field",
+        "Start": 0,
+        "End": 2,
+        "Row": "Row_DTNi8mpxBn",
+        "Column::Field": [
+            "Loan_Type"
+        ],
+        "Column::Appearance": [
+            "Appearance_E0aD2Wz362"
+        ]
+    },
+    "{Fields.FieldName1}": {
+        "Id": "{Fields.FieldName1}",
+        "Kind": "Field",
+        "Type": "{Fields.FieldType}",
+        "CreatedAt": "2025-03-11T16:05:50.238Z",
+        "Model": "{processName}",
+        "Column": "Column_Pl7ObJTRiI",
+        "Name": "{Fields.FieldName1}", 
+        "Required": "{Fields.Required}"
+    },
+    "{Fields.FieldName2}": {
+        "Id": "{Fields.FieldName2}",
+        "Kind": "Field",
+        "Type": "{Fields.FieldType}",
+        "CreatedAt": "2025-03-11T16:06:07.332Z",
+        "Model": "{processName}",
+        "Column": "Column_VyyPeOSiRI",
+        "Name": "{Fields.FieldName2}", 
+        "Required": "{Fields.Required}"
+    },
+    "Column_-nSWRyNEuO": {
+        "Id": "Column_-nSWRyNEuO",
+        "Kind": "Column",
+        "Type": "Field",
+        "Start": 4,
+        "End": 6,
+        "Row": "Row_4nnzuaFbpM",
+        "Column::Field": [
+            "{Fields.FieldName3}"
+        ]
+    },
+    "{Fields.FieldName3}": {
+        "Id": "{Fields.FieldName3}",
+        "Kind": "Field",
+        "Type": "{Fields.FieldType}",
+        "CreatedAt": "2025-03-11T16:34:14.574Z",
+        "Model": "{processName",
+        "Column": "Column_-nSWRyNEuO",
+        "Name": "{Fields.FieldName3}", 
+        "Required":"{Fields.Required}"
+    },
+    "{Fields.FieldName4}": {
+        "Id": "{Fields.FieldName4}",
+        "Kind": "Field",
+        "Type": "{Fields.FieldType}",
+        "CreatedAt": "2025-03-11T16:06:19.732Z",
+        "Name": "{Fields.FieldName4}", 
+        "Model": "{processName}",
+        "Column": "Column_X3mxHvv85Z",
+        "DatasourceType": "Dataset",
+        "Field::QueryDefinition": [
+            "QueryDefinition_yoRLYU8_QN"
+        ],
+        "Required": true
+    },
+    "QueryDefinition_yoRLYU8_QN": {
+        "Id": "QueryDefinition_yoRLYU8_QN",
+        "Kind": "QueryDefinition",
+        "Field": "{Fields.FieldName4}",
+        "LHSModel": "{Fields.DatasetName}",
+        "FlowType": "Dataset",
+        "LookupField": [
+            {
+                "Type": "Text",
+                "Name": "{Fields.DatasetColumn}",
+                "Id": "Untitled_field_1"
+            }
+        ],
+        "SortBy": [
+            {
+                "Field": "Untitled_field_1",
+                "IsDescending": false
+            }
+        ]
+    },
+    "Column_18zpkrx4GX": {
+        "Id": "Column_18zpkrx4GX",
+        "Kind": "Column",
+        "Type": "Field",
+        "Start": 2,
+        "End": 4,
+        "Row": "Row_DTNi8mpxBn",
+        "Column::Field": [
+            "{Fields.FieldName5}"
+        ]
+    },
+    "{Fields.FieldName5}": {
+        "Id": "{Fields.FieldName5}",
+        "Kind": "Field",
+        "Type": "{Fields.FieldType}",
+        "CreatedAt": "2025-03-11T16:35:12.008Z",
+        "Model": "{processName}",
+        "Column": "Column_18zpkrx4GX",
+        "Name": "{Fields.FieldName5}", 
+        "Required": "{Fields.Required}"
+    },
+    "Appearance_E0aD2Wz362": {
+        "Id": "Appearance_E0aD2Wz362",
+        "Kind": "Appearance",
+        "Column": "Column_X3mxHvv85Z",
+        "Appearance::Style": [
+            "Style_KIlsiT1zl7"
+        ]
+    },
+    "Style_KIlsiT1zl7": {
+        "Id": "Style_KIlsiT1zl7",
+        "Kind": "Style",
+        "Appearance": "Appearance_E0aD2Wz362"
+    },
+    "Column_G6Qr0XFsUd": {
+        "Id": "Column_G6Qr0XFsUd",
+        "Kind": "Column",
+        "Type": "Field",
+        "Start": 4,
+        "End": 6,
+        "Row": "Row_DTNi8mpxBn",
+        "Column::Field": [
+            "{Fields.FieldName6}"
+        ]
+    },
+    "{Fields.FieldName6}": {
+        "Id": "{Fields.FieldName6}",
+        "Kind": "Field",
+        "Type": "{Fields.FieldType}",
+        "CreatedAt": "2025-03-11T16:36:10.245Z",
+        "Model": "{processName}",
+        "Name": "{Fields.FieldName6}", 
+        "Column": "Column_G6Qr0XFsUd",
+        "Widget": "Radio",
+        "ReferredList": "Account_Type",
+        "Required":"{Fields.Required}"
+    }
+}

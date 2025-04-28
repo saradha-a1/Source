@@ -1,0 +1,482 @@
+{
+  "Digital Subscription": {
+    "ProcessName": "Digital Subscription",
+    "Fields": [
+      {
+        "fieldName1": "Subscriber_Name",
+        "fieldType": "Text",
+        "required": true,
+        "validation": {
+          "ruleName": "MIN_LENGTH",
+          "value": 4,
+          "validationMessage": "Name must be at least 4 characters."
+        }
+      },
+      {
+        "fieldName2": "Subscription_Notes",
+        "fieldType": "Textarea",
+        "required": false
+      },
+      {
+        "fieldName3": "Subscription_Duration",
+        "fieldType": "Number",
+        "required": true,
+        "validation": {
+          "ruleName": "GREATER_THAN",
+          "value": 0,
+          "validationMessage": "Duration must be greater than 0."
+        },
+        "expression": "RANDBETWEEN(1, 12)"
+      },
+      {
+        "fieldName4": "Subscription_Start_Date",
+        "fieldType": "Date",
+        "required": true
+      },
+      {
+        "fieldName5": "Subscription_Type",
+        "fieldType": "Select",
+        "required": true,
+        "datasetName": "Digital_Subscription_Types",
+        "datasetColumn": "Type_Name",
+        "columnType": "Text"
+      },
+      {
+        "fieldName6": "Renew_Automatically",
+        "fieldType": "Boolean",
+        "required": true
+      },
+      {
+        "fieldName7": "Subscriber_Email",
+        "fieldType": "Email",
+        "required": true
+      },
+      {
+        "fieldName8": "Payment_Method",
+        "fieldType": "Select",
+        "required": true,
+        "listName": "Digital_Subscription_PaymentMethods"
+      },
+      {
+        "fieldName9": "Subscription_Fee",
+        "fieldType": "Currency",
+        "required": true
+      },
+      {
+        "fieldName10": "Subscription_Benefits",
+        "fieldType": "Multiselect",
+        "required": true,
+        "listName": "Digital_Subscription_Benefits"
+      },
+      {
+        "fieldName11": "User_Agreement_Accepted",
+        "fieldType": "Checkbox",
+        "required": true,
+        "listName": "Digital_Subscription_UserAgreements"
+      },
+      {
+        "fieldName12": "Subscriber_Category",
+        "fieldType": "Reference",
+        "required": true,
+        "datasetName": "Digital_Subscription_Categories",
+        "datasetColumn": "Category_Name",
+        "columnType": "Text"
+      },
+      {
+        "fieldName13": "Contract_File",
+        "fieldType": "Attachment",
+        "required": true
+      }
+    ],
+    "Datasets": [
+      {
+        "datasetName": "Digital_Subscription_Types",
+        "columns": [
+          {
+            "columnName": "Type_Name",
+            "columnType": "Text"
+          },
+          {
+            "columnName": "Type_ID",
+            "columnType": "Number"
+          },
+          {
+            "columnName": "Description",
+            "columnType": "Textarea"
+          },
+          {
+            "columnName": "Contact_Email",
+            "columnType": "Email"
+          }
+        ]
+      },
+      {
+        "datasetName": "Digital_Subscription_Categories",
+        "columns": [
+          {
+            "columnName": "Category_Name",
+            "columnType": "Text"
+          },
+          {
+            "columnName": "Category_ID",
+            "columnType": "Number"
+          },
+          {
+            "columnName": "Category_Description",
+            "columnType": "Textarea"
+          },
+          {
+            "columnName": "Support_Email",
+            "columnType": "Email"
+          }
+        ]
+      }
+    ],
+    "Lists": [
+      {
+        "listName": "Digital_Subscription_PaymentMethods",
+        "values": [
+          "Credit Card",
+          "PayPal",
+          "Bank Transfer"
+        ]
+      },
+      {
+        "listName": "Digital_Subscription_Benefits",
+        "values": [
+          "Access to Premium Content",
+          "Monthly Newsletter",
+          "Exclusive Discounts"
+        ]
+      },
+      {
+        "listName": "Digital_Subscription_UserAgreements",
+        "values": [
+          "Agreement 1",
+          "Agreement 2",
+          "Agreement 3"
+        ]
+      }
+    ]
+  },
+  "Smart Accessories": {
+    "ProcessName": "Smart Accessories",
+    "Fields": [
+      {
+        "fieldName1": "Accessory_Name",
+        "fieldType": "Text",
+        "required": true,
+        "validation": {
+          "ruleName": "MIN_LENGTH",
+          "value": 3,
+          "validationMessage": "Name must be at least 3 characters."
+        }
+      },
+      {
+        "fieldName2": "Accessory_Description",
+        "fieldType": "Textarea",
+        "required": true
+      },
+      {
+        "fieldName3": "Stock_Availability",
+        "fieldType": "Number",
+        "required": true,
+        "validation": {
+          "ruleName": "GREATER_THAN",
+          "value": 0,
+          "validationMessage": "Stock must be greater than 0."
+        },
+        "expression": "RANDBETWEEN(1, 100)"
+      },
+      {
+        "fieldName4": "Launch_Date",
+        "fieldType": "Date",
+        "required": true
+      },
+      {
+        "fieldName5": "Supplier",
+        "fieldType": "Select",
+        "required": true,
+        "datasetName": "Smart_Accessories_Suppliers",
+        "datasetColumn": "Supplier_Name",
+        "columnType": "Text"
+      },
+      {
+        "fieldName6": "Is_Discounted",
+        "fieldType": "Boolean",
+        "required": false
+      },
+      {
+        "fieldName7": "Supplier_Contact_Email",
+        "fieldType": "Email",
+        "required": true
+      },
+      {
+        "fieldName8": "Accessory_Type",
+        "fieldType": "Select",
+        "required": true,
+        "listName": "Smart_Accessories_Types"
+      },
+      {
+        "fieldName9": "Price",
+        "fieldType": "Currency",
+        "required": true
+      },
+      {
+        "fieldName10": "Available_Colors",
+        "fieldType": "Multiselect",
+        "required": true,
+        "listName": "Smart_Accessories_Colors"
+      },
+      {
+        "fieldName11": "Special_Features",
+        "fieldType": "Checkbox",
+        "required": false,
+        "listName": "Smart_Accessories_Features"
+      },
+      {
+        "fieldName12": "Warehouse_Location",
+        "fieldType": "Reference",
+        "required": true,
+        "datasetName": "Smart_Accessories_Locations",
+        "datasetColumn": "Location_Name",
+        "columnType": "Text"
+      },
+      {
+        "fieldName13": "Product_Image",
+        "fieldType": "Attachment",
+        "required": true
+      }
+    ],
+    "Datasets": [
+      {
+        "datasetName": "Smart_Accessories_Suppliers",
+        "columns": [
+          {
+            "columnName": "Supplier_Name",
+            "columnType": "Text"
+          },
+          {
+            "columnName": "Supplier_ID",
+            "columnType": "Number"
+          },
+          {
+            "columnName": "Supplier_Contact",
+            "columnType": "Text"
+          },
+          {
+            "columnName": "Supplier_Email",
+            "columnType": "Email"
+          }
+        ]
+      },
+      {
+        "datasetName": "Smart_Accessories_Locations",
+        "columns": [
+          {
+            "columnName": "Location_Name",
+            "columnType": "Text"
+          },
+          {
+            "columnName": "Location_ID",
+            "columnType": "Number"
+          },
+          {
+            "columnName": "Location_Description",
+            "columnType": "Textarea"
+          },
+          {
+            "columnName": "Manager_Email",
+            "columnType": "Email"
+          }
+        ]
+      }
+    ],
+    "Lists": [
+      {
+        "listName": "Smart_Accessories_Types",
+        "values": [
+          "Case",
+          "Charger",
+          "Headphones"
+        ]
+      },
+      {
+        "listName": "Smart_Accessories_Colors",
+        "values": [
+          "Red",
+          "Blue",
+          "Black"
+        ]
+      },
+      {
+        "listName": "Smart_Accessories_Features",
+        "values": [
+          "Waterproof",
+          "Wireless",
+          "Noise Cancellation"
+        ]
+      }
+    ]
+  },
+  "DIY Kits": {
+    "ProcessName": "DIY Kits",
+    "Fields": [
+      {
+        "fieldName1": "Kit_Name",
+        "fieldType": "Text",
+        "required": true,
+        "validation": {
+          "ruleName": "MIN_LENGTH",
+          "value": 5,
+          "validationMessage": "Kit name must be at least 5 characters."
+        }
+      },
+      {
+        "fieldName2": "Kit_Description",
+        "fieldType": "Textarea",
+        "required": true
+      },
+      {
+        "fieldName3": "Kit_Price",
+        "fieldType": "Number",
+        "required": true,
+        "validation": {
+          "ruleName": "GREATER_THAN",
+          "value": 10,
+          "validationMessage": "Price must be greater than 10."
+        },
+        "expression": "RANDBETWEEN(15, 100)"
+      },
+      {
+        "fieldName4": "Release_Date",
+        "fieldType": "Date",
+        "required": true
+      },
+      {
+        "fieldName5": "Category",
+        "fieldType": "Select",
+        "required": true,
+        "datasetName": "DIY_Kits_Categories",
+        "datasetColumn": "Category_Name",
+        "columnType": "Text"
+      },
+      {
+        "fieldName6": "Is_Reusable",
+        "fieldType": "Boolean",
+        "required": true
+      },
+      {
+        "fieldName7": "Support_Email",
+        "fieldType": "Email",
+        "required": true
+      },
+      {
+        "fieldName8": "Skill_Level",
+        "fieldType": "Select",
+        "required": true,
+        "listName": "DIY_Kits_SkillLevels"
+      },
+      {
+        "fieldName9": "Estimated_Cost",
+        "fieldType": "Currency",
+        "required": true
+      },
+      {
+        "fieldName10": "Components_Included",
+        "fieldType": "Multiselect",
+        "required": true,
+        "listName": "DIY_Kits_Components"
+      },
+      {
+        "fieldName11": "Terms_Accepted",
+        "fieldType": "Checkbox",
+        "required": true,
+        "listName": "DIY_Kits_Terms"
+      },
+      {
+        "fieldName12": "Design_Template",
+        "fieldType": "Reference",
+        "required": true,
+        "datasetName": "DIY_Kits_Templates",
+        "datasetColumn": "Template_Name",
+        "columnType": "Text"
+      },
+      {
+        "fieldName13": "Assembly_Guide",
+        "fieldType": "Attachment",
+        "required": true
+      }
+    ],
+    "Datasets": [
+      {
+        "datasetName": "DIY_Kits_Categories",
+        "columns": [
+          {
+            "columnName": "Category_Name",
+            "columnType": "Text"
+          },
+          {
+            "columnName": "Category_ID",
+            "columnType": "Number"
+          },
+          {
+            "columnName": "Description",
+            "columnType": "Textarea"
+          },
+          {
+            "columnName": "Contact_Email",
+            "columnType": "Email"
+          }
+        ]
+      },
+      {
+        "datasetName": "DIY_Kits_Templates",
+        "columns": [
+          {
+            "columnName": "Template_Name",
+            "columnType": "Text"
+          },
+          {
+            "columnName": "Template_ID",
+            "columnType": "Number"
+          },
+          {
+            "columnName": "Template_Price",
+            "columnType": "Currency"
+          },
+          {
+            "columnName": "Designer_Email",
+            "columnType": "Email"
+          }
+        ]
+      }
+    ],
+    "Lists": [
+      {
+        "listName": "DIY_Kits_SkillLevels",
+        "values": [
+          "Beginner",
+          "Intermediate",
+          "Advanced"
+        ]
+      },
+      {
+        "listName": "DIY_Kits_Components",
+        "values": [
+          "Screwdriver",
+          "Hammer",
+          "Glue"
+        ]
+      },
+      {
+        "listName": "DIY_Kits_Terms",
+        "values": [
+          "Term 1",
+          "Term 2",
+          "Term 3"
+        ]
+      }
+    ]
+  }
+}

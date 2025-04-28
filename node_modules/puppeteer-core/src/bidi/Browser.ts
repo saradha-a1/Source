@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type {ChildProcess} from 'child_process';
+import type {ChildProcess} from 'node:child_process';
 
 import * as Bidi from 'chromium-bidi/lib/cjs/protocol/protocol.js';
 
@@ -57,6 +57,7 @@ export class BidiBrowser extends Browser {
     'network',
     'log',
     'script',
+    'input',
   ];
   static readonly subscribeCdpEvents: Bidi.Cdp.EventNames[] = [
     // Coverage

@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Data Flow - Dashboard</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Fonts: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome for Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <style>
+    /* Add your existing styles here */
+    :root {
+      --sidebar-width: 250px;
+      --sidebar-collapsed-width: 80px;
+      --sidebar-bg: #ffffff;
+      --sidebar-text: #333;
+      --sidebar-active-bg: #007bff;
+      --sidebar-active-text: #ffffff;
+      --sidebar-hover-bg: #e9ecef;
+      --sidebar-hover-text: #007bff;
+      --sidebar-divider: #e9ecef;
+      --sidebar-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+      --transition-speed: 0.3s;
+    }
+
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .sidebar {
+      height: 100vh;
+      width: var(--sidebar-width);
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: var(--sidebar-bg);
+      box-shadow: var(--sidebar-shadow);
+      padding-top: 10px;
+      transition: width var(--transition-speed) ease;
+    }
+
+    .sidebar.collapsed {
+      width: var(--sidebar-collapsed-width);
+    }
+
+    .sidebar.collapsed .logo p,
+    .sidebar.collapsed a span {
+      display: none;
+    }
+
+    .sidebar.collapsed a {
+      text-align: center;
+    }
+
+    .sidebar.collapsed .menu-icon {
+      display: none;
+    }
+
+    .sidebar.collapsed .menu-divider {
+      width: 50%;
+    }
+
+    .sidebar a {
+      padding: 12px 15px;
+      text-decoration: none;
+      font-size: 14px;
+      color: var(--sidebar-text);
+      display: flex;
+      align-items: center;
+      transition: all var(--transition-speed) ease;
+    }
+
+    .sidebar a i {
+      margin-right: 10px;
+    }
+
+    .sidebar a:hover {
+      background-color: var(--sidebar-hover-bg);
+      color: var(--sidebar-hover-text);
+    }
+
+    .sidebar a.active {
+      background-color: var(--sidebar-active-bg);
+      color: var(--sidebar-active-text);
+      border-radius: 5px;
+    }
+
+    .sidebar .logo {
+      text-align: center;
+      margin-bottom: 20px;
+      padding: 15px;
+    }
+
+    .sidebar .logo p {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--sidebar-active-bg);
+      margin-top: 5px;
+    }
+
+    .sidebar .logo .line {
+      width: 50px;
+      height: 2px;
+      background-color: var(--sidebar-active-bg);
+      margin: 10px auto;
+    }
+
+    .sidebar .menu-divider {
+      display: none;
+    }
+
+    .sidebar .menu-icon {
+      margin-left: auto;
+      cursor: pointer;
+      transition: transform var(--transition-speed) ease;
+    }
+
+    .sidebar .menu-icon.rotated {
+      transform: rotate(180deg);
+    }
+
+    .main-content {
+      margin-left: var(--sidebar-width);
+      padding: 20px;
+      background-color: #ffffff;
+      min-height: 100vh;
+      transition: margin-left var(--transition-speed) ease;
+    }
+
+    .main-content.collapsed {
+      margin-left: var(--sidebar-collapsed-width);
+    }
+
+    .dashboard-box {
+      background-color: #ffffff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin-bottom: 15px;
+      border: 1px solid #e9ecef;
+    }
+
+    .dashboard-box h3 {
+      color: #007bff;
+      margin-bottom: 10px;
+      font-weight: 500;
+      font-size: 16px;
+    }
+
+    .dashboard-box img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+
+    .terminal {
+      background-color: #1e1e1e;
+      color: #00ff00;
+      font-family: monospace;
+      padding: 10px;
+      border-radius: 5px;
+      height: 250px;
+      overflow-y: auto;
+      margin-top: 15px;
+    }
+
+    .form-container {
+      background-color: #ffffff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border: 1px solid #e9ecef;
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+    }
+
+    .form-container h3 {
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .btn-run {
+      background-color: #007bff;
+      color: #ffffff;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      font-size: 14px;
+      transition: background-color 0.3s ease;
+      font-weight: 500;
+    }
+
+    .btn-run:hover {
+      background-color: #0056b3;
+    }
+
+    .text-blue {
+      color: #007bff;
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .quick-guide-image {
+      width: 180px;
+      height: auto;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+
+    /* Submenu styles */
+    .submenu {
+      padding-left: 30px;
+      display: none;
+    }
+
+    .submenu a {
+      padding: 8px 15px;
+      font-size: 13px;
+    }
+
+    .submenu a i {
+      margin-right: 8px;
+    }
+
+    .submenu a.active {
+      background-color: var(--sidebar-active-bg);
+      color: var(--sidebar-active-text);
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="logo">
+      <p>TEST DATA FLOW</p>
+      <div class="line"></div>
+    </div>
+    <a href="#" id="homeMenu" class="active">
+      <i class="fas fa-home"></i> Home
+    </a>
+    <a href="#" id="userMenu">
+      <i class="fas fa-user"></i> USER
+    </a>
+    <!-- Process Menu -->
+    <a href="#" id="processMenu">
+      <i class="fas fa-cogs"></i> Process
+      <i class="fas fa-chevron-down menu-icon"></i>
+    </a>
+    <!-- Process Submenu -->
+    <div class="submenu" id="processSubmenu">
+      <a href="#" id="processFormFields">
+        <i class="fas fa-file-alt"></i> Process & Form Fields
+      </a>
+      <a href="#" id="datasetList">
+        <i class="fas fa-list"></i> Dataset & List
+      </a>
+      <a href="#" id="processMetadata">
+        <i class="fas fa-database"></i> Process & Metadata
+      </a>
+      <a href="#" id="itemInitiate">
+        <i class="fas fa-file-import"></i> Item Initiate (Draft & Complete)
+      </a>
+    </div>
+    <!-- Output Documents Menu -->
+    <a href="#" id="outputDocumentsMenu">
+      <i class="fas fa-file-alt"></i> Output Documents
+    </a>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Home Dashboard (Visible by Default) -->
+    <div id="homeContent">
+      <h3 class="text-blue mb-3">Dashboard</h3>
+      <div class="row">
+        <!-- Box 1: Quick Guide -->
+        <div class="col-md-6">
+          <div class="dashboard-box">
+            <h3><i class="fas fa-info-circle text-blue"></i> Quick Guide</h3>
+            <p>
+              Welcome to <strong>Test Data Flow</strong>! This tool helps you automate the testing of web elements by running scripts and displaying logs in real-time.
+            </p>
+            <img src="./Image2.png" alt="Quick Guide Image" class="quick-guide-image">
+          </div>
+        </div>
+        <!-- Box 2: Environment Setup -->
+        <div class="col-md-6">
+          <div class="dashboard-box">
+            <h3><i class="fas fa-cogs text-blue"></i> Environment Setup</h3>
+            <p>Configure your environment settings for seamless testing.</p>
+          </div>
+        </div>
+        <!-- Box 3: Test Reports -->
+        <div class="col-md-6">
+          <div class="dashboard-box">
+            <h3><i class="fas fa-chart-bar text-blue"></i> Test Reports</h3>
+            <p>View detailed reports and analytics for your test runs.</p>
+          </div>
+        </div>
+        <!-- Box 4: User Management -->
+        <div class="col-md-6">
+          <div class="dashboard-box">
+            <h3><i class="fas fa-user-cog text-blue"></i> User Management</h3>
+            <p>Manage user roles and permissions for your team.</p>
+          </div>
+        </div>
+        <!-- Box 5: Script Library -->
+        <div class="col-md-6">
+          <div class="dashboard-box">
+            <h3><i class="fas fa-file-code text-blue"></i> Script Library</h3>
+            <p>Access and manage your test scripts in one place.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- USER Form (Hidden by Default) -->
+    <div id="userContent" style="display: none;">
+      <h3 class="text-blue mb-3">USER Management</h3>
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="form-container">
+            <h3 class="mb-3">User Details</h3>
+            <form id="userForm">
+              <div class="mb-3">
+                <label for="baseUrl" class="form-label">BASE_URL</label>
+                <input type="text" class="form-control" id="baseUrl" placeholder="Enter Base URL" required>
+              </div>
+              <div class="mb-3">
+                <label for="accountId" class="form-label">ACCOUNT_ID</label>
+                <input type="text" class="form-control" id="accountId" placeholder="Enter Account ID" required>
+              </div>
+              <div class="mb-3">
+                <label for="accessKeyId" class="form-label">ACCESS_KEY_ID</label>
+                <input type="text" class="form-control" id="accessKeyId" placeholder="Enter Access Key ID" required>
+              </div>
+              <div class="mb-3">
+                <label for="accessKeySecret" class="form-label">ACCESS_KEY_SECRET</label>
+                <input type="text" class="form-control" id="accessKeySecret" placeholder="Enter Access Key Secret" required>
+              </div>
+              <div class="mb-3">
+                <label for="userCount" class="form-label">USER_COUNT</label>
+                <input type="number" class="form-control" id="userCount" placeholder="Enter User Count" required>
+              </div>
+              <div class="mb-3">
+                <label for="adminEmails" class="form-label">ADMIN_EMAILS</label>
+                <select class="form-select" id="adminEmails" multiple>
+                  <option value="saradha@kissflow.com">saradha@kissflow.com</option>
+                  <option value="karen_taylor@bugbug-inbox.com">karen_taylor@bugbug-inbox.com</option>
+                  <option value="sandra_johnson@bugbug-inbox.com">sandra_johnson@bugbug-inbox.com</option>
+                </select>
+                <small class="form-text text-muted">Hold Ctrl (Windows) or Command (Mac) to select multiple emails.</small>
+              </div>
+              <button type="submit" class="btn btn-run w-100">Run Scripts</button>
+            </form>
+          </div>
+          <div class="terminal mt-3">
+            <pre id="userTerminalLogs">Terminal Logs will appear here...</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Process & Form Fields Form (Hidden by Default) -->
+    <div id="processFormFieldsContent" style="display: none;">
+      <h3 class="text-blue mb-3">Process & Form Fields</h3>
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="form-container">
+            <h3 class="mb-3">Process Details</h3>
+            <form id="processFormFieldsForm">
+              <div class="mb-3">
+                <label for="domainName" class="form-label">DOMAIN_NAME</label>
+                <input type="text" class="form-control" id="domainName" placeholder="Enter Domain Name" required>
+              </div>
+              <div class="mb-3">
+                <label for="processCount" class="form-label">PROCESS_COUNT</label>
+                <input type="number" class="form-control" id="processCount" placeholder="Enter Process Count" required>
+              </div>
+              <div class="mb-3">
+                <label for="groqApiKey" class="form-label">GROQ_API_KEY</label>
+                <input type="text" class="form-control" id="groqApiKey" placeholder="Enter GROQ API Key" required>
+              </div>
+              <button type="submit" class="btn btn-run w-100">Run Scripts</button>
+            </form>
+          </div>
+          <div class="terminal mt-3">
+            <pre id="processFormFieldsTerminalLogs">Terminal Logs will appear here...</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dataset & List Content (Hidden by Default) -->
+    <div id="datasetListContent" style="display: none;">
+      <h3 class="text-blue mb-3">Dataset & List</h3>
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="form-container">
+            <h3 class="mb-3">Dataset & List Details</h3>
+            <form id="datasetListForm">
+              <div class="mb-3">
+                <label for="datasetBaseUrl" class="form-label">BASE_URL</label>
+                <input type="text" class="form-control" id="datasetBaseUrl" placeholder="Enter Base URL" required>
+              </div>
+              <div class="mb-3">
+                <label for="datasetAccountId" class="form-label">ACCOUNT_ID</label>
+                <input type="text" class="form-control" id="datasetAccountId" placeholder="Enter Account ID" required>
+              </div>
+              <div class="mb-3">
+                <label for="datasetAccessKeyId" class="form-label">ACCESS_KEY_ID</label>
+                <input type="text" class="form-control" id="datasetAccessKeyId" placeholder="Enter Access Key ID" required>
+              </div>
+              <div class="mb-3">
+                <label for="datasetAccessKeySecret" class="form-label">ACCESS_KEY_SECRET</label>
+                <input type="text" class="form-control" id="datasetAccessKeySecret" placeholder="Enter Access Key Secret" required>
+              </div>
+              <div class="mb-3">
+                <label for="datasetEmail" class="form-label">EMAIL</label>
+                <input type="email" class="form-control" id="datasetEmail" placeholder="Enter Email" required>
+              </div>
+              <div class="mb-3">
+                <label for="datasetPassword" class="form-label">PASSWORD</label>
+                <input type="password" class="form-control" id="datasetPassword" placeholder="Enter Password" required>
+              </div>
+              <button type="submit" class="btn btn-run w-100">Run Scripts</button>
+            </form>
+          </div>
+          <div class="terminal mt-3">
+            <pre id="datasetListTerminalLogs">Terminal Logs will appear here...</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Process & Metadata Content (Hidden by Default) -->
+    <div id="processMetadataContent" style="display: none;">
+      <h3 class="text-blue mb-3">Process & Metadata</h3>
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="form-container">
+            <h3 class="mb-3">Process & Metadata Details</h3>
+            <!-- Add form fields for Process & Metadata -->
+          </div>
+          <div class="terminal mt-3">
+            <pre id="processMetadataTerminalLogs">Terminal Logs will appear here...</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Item Initiate Content (Hidden by Default) -->
+    <div id="itemInitiateContent" style="display: none;">
+      <h3 class="text-blue mb-3">Item Initiate (Draft & Complete)</h3>
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="form-container">
+            <h3 class="mb-3">Item Initiate Details</h3>
+            <!-- Add form fields for Item Initiate -->
+          </div>
+          <div class="terminal mt-3">
+            <pre id="itemInitiateTerminalLogs">Terminal Logs will appear here...</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Output Documents (Hidden by Default) -->
+    <div id="outputDocumentsContent" style="display: none;">
+      <h3 class="text-blue mb-3">Output Documents</h3>
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="form-container">
+            <h3 class="mb-3">Saved Files</h3>
+            <button id="clearDocumentsButton" class="btn btn-danger mb-3">Clear All Documents</button>
+            <ul id="outputDocumentsList" class="list-group">
+              <!-- Files will be listed here -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+  <!-- Custom JS -->
+  <script>
+    // Handle sidebar menu clicks
+    const homeMenu = document.getElementById('homeMenu');
+    const userMenu = document.getElementById('userMenu');
+    const processMenu = document.getElementById('processMenu');
+    const outputDocumentsMenu = document.getElementById('outputDocumentsMenu');
+    const homeContent = document.getElementById('homeContent');
+    const userContent = document.getElementById('userContent');
+    const processFormFieldsContent = document.getElementById('processFormFieldsContent');
+    const datasetListContent = document.getElementById('datasetListContent');
+    const processMetadataContent = document.getElementById('processMetadataContent');
+    const itemInitiateContent = document.getElementById('itemInitiateContent');
+    const outputDocumentsContent = document.getElementById('outputDocumentsContent');
+
+    // Toggle sidebar collapse
+    const sidebar = document.querySelector('.sidebar');
+    const mainContent = document.querySelector('.main-content');
+    const toggleSidebar = document.createElement('div');
+    toggleSidebar.classList.add('toggle-sidebar');
+    toggleSidebar.innerHTML = '<i class="fas fa-bars"></i>';
+    document.body.appendChild(toggleSidebar);
+
+    toggleSidebar.addEventListener('click', function() {
+      sidebar.classList.toggle('collapsed');
+      mainContent.classList.toggle('collapsed');
+    });
+
+    // Handle menu navigation
+    homeMenu.addEventListener('click', function(event) {
+      event.preventDefault();
+      homeContent.style.display = 'block';
+      userContent.style.display = 'none';
+      processFormFieldsContent.style.display = 'none';
+      datasetListContent.style.display = 'none';
+      processMetadataContent.style.display = 'none';
+      itemInitiateContent.style.display = 'none';
+      outputDocumentsContent.style.display = 'none';
+      homeMenu.classList.add('active');
+      userMenu.classList.remove('active');
+      processMenu.classList.remove('active');
+      outputDocumentsMenu.classList.remove('active');
+    });
+
+    userMenu.addEventListener('click', function(event) {
+      event.preventDefault();
+      homeContent.style.display = 'none';
+      userContent.style.display = 'block';
+      processFormFieldsContent.style.display = 'none';
+      datasetListContent.style.display = 'none';
+      processMetadataContent.style.display = 'none';
+      itemInitiateContent.style.display = 'none';
+      outputDocumentsContent.style.display = 'none';
+      userMenu.classList.add('active');
+      homeMenu.classList.remove('active');
+      processMenu.classList.remove('active');
+      outputDocumentsMenu.classList.remove('active');
+    });
+
+    // Toggle Process Submenu
+    processMenu.addEventListener('click', function(event) {
+      event.preventDefault();
+      const submenu = document.getElementById('processSubmenu');
+      submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+      processMenu.classList.toggle('active');
+      homeMenu.classList.remove('active');
+      userMenu.classList.remove('active');
+      outputDocumentsMenu.classList.remove('active');
+    });
+
+    // Handle Process Submenu Item Clicks
+    const processFormFields = document.getElementById('processFormFields');
+    const datasetList = document.getElementById('datasetList');
+    const processMetadata = document.getElementById('processMetadata');
+    const itemInitiate = document.getElementById('itemInitiate');
+
+    const processSubmenuItems = [processFormFields, datasetList, processMetadata, itemInitiate];
+
+    processSubmenuItems.forEach(item => {
+      item.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        // Remove active class from all submenu items
+        processSubmenuItems.forEach(subItem => subItem.classList.remove('active'));
+
+        // Add active class to the clicked submenu item
+        item.classList.add('active');
+
+        // Hide all content sections
+        homeContent.style.display = 'none';
+        userContent.style.display = 'none';
+        processFormFieldsContent.style.display = 'none';
+        datasetListContent.style.display = 'none';
+        processMetadataContent.style.display = 'none';
+        itemInitiateContent.style.display = 'none';
+        outputDocumentsContent.style.display = 'none';
+
+        // Show the corresponding content section
+        if (item.id === 'processFormFields') {
+          processFormFieldsContent.style.display = 'block';
+        } else if (item.id === 'datasetList') {
+          datasetListContent.style.display = 'block';
+        } else if (item.id === 'processMetadata') {
+          processMetadataContent.style.display = 'block';
+        } else if (item.id === 'itemInitiate') {
+          itemInitiateContent.style.display = 'block';
+        }
+
+        // Highlight the Process menu
+        processMenu.classList.add('active');
+        homeMenu.classList.remove('active');
+        userMenu.classList.remove('active');
+        outputDocumentsMenu.classList.remove('active');
+      });
+    });
+
+    // Handle Output Documents menu click
+    outputDocumentsMenu.addEventListener('click', function(event) {
+      event.preventDefault();
+      homeContent.style.display = 'none';
+      userContent.style.display = 'none';
+      processFormFieldsContent.style.display = 'none';
+      datasetListContent.style.display = 'none';
+      processMetadataContent.style.display = 'none';
+      itemInitiateContent.style.display = 'none';
+      outputDocumentsContent.style.display = 'block';
+      outputDocumentsMenu.classList.add('active');
+      homeMenu.classList.remove('active');
+      userMenu.classList.remove('active');
+      processMenu.classList.remove('active');
+
+      // Fetch the list of output documents
+      fetchOutputDocuments();
+    });
+
+    // Handle Clear Documents Button
+    document.getElementById('clearDocumentsButton').addEventListener('click', async function() {
+      const confirmation = confirm('Are you sure you want to clear all documents?');
+      if (!confirmation) return;
+
+      try {
+        const response = await fetch('/clear-output-documents', {
+          method: 'POST',
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to clear documents');
+        }
+
+        // Refresh the document list
+        fetchOutputDocuments();
+        alert('All documents cleared successfully!');
+      } catch (error) {
+        console.error('Error clearing documents:', error);
+        alert('Failed to clear documents. Please try again.');
+      }
+    });
+
+    // Function to fetch and display output documents
+    async function fetchOutputDocuments() {
+      try {
+        const response = await fetch('/output-documents');
+        if (!response.ok) {
+          throw new Error('Failed to fetch documents');
+        }
+
+        const files = await response.json();
+        const outputDocumentsList = document.getElementById('outputDocumentsList');
+
+        // Filter out older versions of files
+        const latestFiles = {};
+        files.forEach(file => {
+          const baseName = file.name.split('_')[0]; // Extract base name (e.g., "ProcessName" or "output")
+          const timestamp = file.name.match(/\d+/)?.[0]; // Extract timestamp
+          if (!latestFiles[baseName] || timestamp > latestFiles[baseName].timestamp) {
+            latestFiles[baseName] = { ...file, timestamp };
+          }
+        });
+
+        // Display only the latest files
+        outputDocumentsList.innerHTML = Object.values(latestFiles).map(file => `
+          <li class="list-group-item">
+            <a href="/output-documents/${file.name}" download>${file.name}</a>
+            <span class="text-muted float-end">${file.date}</span>
+          </li>
+        `).join('');
+      } catch (error) {
+        console.error('Error fetching output documents:', error);
+      }
+    }
+
+    // Handle USER form submission
+    document.getElementById('userForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+
+      const terminalLogs = document.getElementById('userTerminalLogs');
+      terminalLogs.textContent = 'Running user scripts...\n';
+
+      // Get selected ADMIN_EMAILS
+      const adminEmails = Array.from(document.getElementById('adminEmails').selectedOptions)
+        .map(option => option.value);
+
+      const formData = {
+        BASE_URL: document.getElementById('baseUrl').value,
+        ACCOUNT_ID: document.getElementById('accountId').value,
+        ACCESS_KEY_ID: document.getElementById('accessKeyId').value,
+        ACCESS_KEY_SECRET: document.getElementById('accessKeySecret').value,
+        USER_COUNT: document.getElementById('userCount').value,
+        ADMIN_EMAILS: adminEmails,
+      };
+
+      try {
+        const response = await fetch('/run-user-scripts', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to run user scripts');
+        }
+
+        const reader = response.body.getReader();
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          const text = new TextDecoder().decode(value);
+          terminalLogs.textContent += text;
+        }
+      } catch (error) {
+        terminalLogs.textContent += `Error: ${error.message}\n`;
+      }
+    });
+
+    // Handle Process & Form Fields form submission
+    document.getElementById('processFormFieldsForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+
+      const terminalLogs = document.getElementById('processFormFieldsTerminalLogs');
+      terminalLogs.textContent = 'Running process & form fields scripts...\n';
+
+      const formData = {
+        DOMAIN_NAME: document.getElementById('domainName').value,
+        PROCESS_COUNT: document.getElementById('processCount').value,
+        GROQ_API_KEY: document.getElementById('groqApiKey').value,
+      };
+
+      try {
+        const response = await fetch('/run-process-form-fields-scripts', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to run process & form fields scripts');
+        }
+
+        const reader = response.body.getReader();
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          const text = new TextDecoder().decode(value);
+          terminalLogs.textContent += text;
+        }
+      } catch (error) {
+        terminalLogs.textContent += `Error: ${error.message}\n`;
+      }
+    });
+
+    // Handle Dataset & List form submission
+    document.getElementById('datasetListForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+
+      const terminalLogs = document.getElementById('datasetListTerminalLogs');
+      terminalLogs.textContent = 'Running Dataset & List scripts...\n';
+
+      const formData = {
+        BASE_URL: document.getElementById('datasetBaseUrl').value,
+        ACCOUNT_ID: document.getElementById('datasetAccountId').value,
+        ACCESS_KEY_ID: document.getElementById('datasetAccessKeyId').value,
+        ACCESS_KEY_SECRET: document.getElementById('datasetAccessKeySecret').value,
+        EMAIL: document.getElementById('datasetEmail').value,
+        PASSWORD: document.getElementById('datasetPassword').value,
+      };
+
+      try {
+        const response = await fetch('/run-dataset-list-scripts', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to run Dataset & List scripts');
+        }
+
+        const reader = response.body.getReader();
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          const text = new TextDecoder().decode(value);
+          terminalLogs.textContent += text;
+        }
+      } catch (error) {
+        terminalLogs.textContent += `Error: ${error.message}\n`;
+      }
+    });
+  </script>
+</body>
+</html>

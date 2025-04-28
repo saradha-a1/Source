@@ -1,0 +1,38 @@
+[
+  {
+    "success": true,
+    "processId": "process_2_run_1",
+    "processName": "drug discovery",
+    "data": {
+      "_id": "PkB9WiCH5DqT",
+      "ModelId": "drug discovery",
+      "_activity_instance_id": "PkB9WiCHLzbi",
+      "_meta_version": "1744091548290239"
+    },
+    "status": 200
+  },
+  {
+    "success": true,
+    "processId": "process_2_run_1",
+    "processName": "drug discovery",
+    "data": {
+      "_id": "PkB9WiPQjIcs",
+      "ModelId": "drug discovery",
+      "_activity_instance_id": "PkB9WiPQvsD4",
+      "_meta_version": "1744091548290239"
+    },
+    "status": 200
+  },
+  {
+    "success": true,
+    "processId": "process_2_run_2",
+    "processName": "drug discovery",
+    "data": {
+      "_id": "PkB9WiQOJOkX",
+      "ModelId": "drug discovery",
+      "_activity_instance_id": "PkB9WiQO_AWm",
+      "_meta_version": "1744091548290239"
+    },
+    "status": 200
+  }
+]

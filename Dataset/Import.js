@@ -1,163 +1,181 @@
-const puppeteer = require('puppeteer');
-const csvParser = require('csv-parser');
-const fs = require('fs');
-const path = require('path');
+import puppeteer from "puppeteer";
+import fs from "fs";
+import path from "path";
+import dotenv from "dotenv";
+import { fileURLToPath } from "url";
 
-// Resolve paths
-const datasetsPath = path.resolve(__dirname, '../Dataset/datasets');
-const datasetCSVPath = path.resolve(__dirname, '../Asset/CSV/Dataset_ID.csv');
-let datasetNames = [];
+// Helper: Get current directory
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-// Helper: Wait function
+// Load environment variables
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
+
+// Path configuration
+const jsonFilePath = path.join(__dirname, '../Asset/CSV/Dataset_list.json');
+const csvDirectory = path.join(__dirname, 'output_csv');
+
+// Validate files
+if (!fs.existsSync(jsonFilePath)) {
+    throw new Error(`File not found: ${jsonFilePath}`);
+}
+if (!fs.existsSync(csvDirectory)) {
+    fs.mkdirSync(csvDirectory, { recursive: true });
+}
+
+// Load dataset list
+const datasetList = JSON.parse(fs.readFileSync(jsonFilePath, 'utf-8'));
+
+// URLs
+const loginUrl = "https://perftesting.tst.zingworks.com/view/login";
+const datasetBaseUrl = "https://perftesting.tst.zingworks.com/view/dataset/";
+
+// Helper functions
 async function wait(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-// Helper: Parse CSV file
-function parseCSV(filePath) {
-    return new Promise((resolve, reject) => {
-        const results = [];
-        fs.createReadStream(filePath)
-            .pipe(csvParser({ headers: false }))
-            .on('data', (row) => {
-                if (row['0']) {
-                    results.push(row['0'].trim());
-                }
-            })
-            .on('end', () => resolve(results))
-            .on('error', (err) => reject(err));
-    });
+async function safeClick(page, selector, options = {}) {
+    try {
+        await page.waitForSelector(selector, {
+            visible: true,
+            timeout: options.timeout || 10000,
+            ...options
+        });
+        await page.click(selector);
+        return true;
+    } catch (error) {
+        console.warn(`Click failed on selector: ${selector}`, error.message);
+        return false;
+    }
 }
 
-// Helper: Handle empty fields
-async function handleEmptyFields(page) {
-    const emptyFields = await page.$$('input[data-testid="empty-field-selector"]'); // Adjust selector
-    for (const field of emptyFields) {
-        const labelName = await field.evaluate((el) => el.getAttribute('data-label-name'));
-        if (labelName === 'Date of Joining') {
-            const dropdown = await page.$('select[data-testid="date-format-dropdown"]');
-            if (dropdown) {
-                await dropdown.select('MM/DD/YYYY'); // Adjust format as needed
-            }
-        } else {
-            const dropdown = await page.$(`select[data-testid="dropdown-${labelName}"]`);
-            if (dropdown) {
-                await dropdown.select(labelName);
+async function clickNextButton(page, times = 3, delay = 3000) {
+    const nextButtonSelectors = [
+        "div[class*='modal'] button:nth-child(2)" // Working selector from your logs
+        
+    ];
+
+    for (let i = 1; i <= times; i++) {
+        console.log(`Attempting to click Next (${i}/${times})`);
+        
+        let clicked = false;
+        for (const selector of nextButtonSelectors) {
+            clicked = await safeClick(page, selector, { timeout: 15000 });
+            if (clicked) {
+                console.log(`✅ Clicked Next using: ${selector}`);
+                break;
             }
         }
+
+        if (!clicked) {
+            console.warn(`⚠️ Failed to click Next on attempt ${i}`);
+            // Additional fallback: Try clicking via JavaScript
+            try {
+                await page.evaluate(() => {
+                    const buttons = Array.from(document.querySelectorAll('button'));
+                    const nextBtn = buttons.find(btn => 
+                        btn.textContent.includes('Next') || 
+                        btn.classList.contains('ant-btn-primary')
+                    );
+                    if (nextBtn) nextBtn.click();
+                });
+                console.log('Tried JavaScript click fallback');
+            } catch (error) {
+                console.warn('JavaScript click fallback failed');
+            }
+        }
+
+        await wait(delay);
     }
 }
 
-// Helper: Use fileChooser for file upload
-async function uploadFileUsingFileChooser(page, filePath, fileInputSelector) {
-    const resolvedPath = path.resolve(filePath);
+async function processDatasets() {
+    const browser = await puppeteer.launch({ 
+        headless: true,
+        defaultViewport: null,
+        args: ['--start-maximized'],
+        slowMo: 100,
+        executablePath: process.env.PUPPETEER_EXECUTABLE_PATH // Optional: Specify Chrome path if needed
+    });
 
-    // Ensure the file exists
-    if (!fs.existsSync(resolvedPath)) {
-        throw new Error(`File not found: ${resolvedPath}`);
-    }
-
-    console.log(`Uploading file: ${resolvedPath}...`);
-
-    // Wait for the file input to be visible
-    const fileInput = await page.$(fileInputSelector);
-    if (!fileInput) {
-        throw new Error('File input element not found.');
-    }
-
-    // Use Puppeteer's fileChooser to handle the file upload
-    const [fileChooser] = await Promise.all([
-        page.waitForFileChooser(),
-        fileInput.click(), // Click the input to open file chooser
-    ]);
-
-    // Upload the file using the fileChooser
-    await fileChooser.accept([resolvedPath]);
-
-    console.log(`File ${resolvedPath} uploaded successfully.`);
-}
-
-// Main automation logic
-(async () => {
-    const browser = await puppeteer.launch({ headless: false, args: ['--start-maximized'] });
     const page = await browser.newPage();
-    await page.setViewport({ width: 1920, height: 1080 });
+    await page.setDefaultTimeout(30000);
 
     try {
-        // Step 1: Parse the CSV file for dataset names
-        if (!fs.existsSync(datasetCSVPath)) {
-            console.error(`Dataset CSV file not found at ${datasetCSVPath}`);
-            return;
-        }
-        datasetNames = await parseCSV(datasetCSVPath);
+        // Login
+        console.log('Navigating to login page');
+        await page.goto(loginUrl, { waitUntil: 'networkidle2', timeout: 60000 });
+        
+        await page.type("#email", process.env.EMAIL, { delay: 50 });
+        await page.type("#password", process.env.PASSWORD, { delay: 50 });
+        await safeClick(page, "button[data-component='button']");
+        
+        await page.waitForNavigation({ waitUntil: 'networkidle2', timeout: 60000 });
+        console.log("✅ Login successful");
 
-        if (datasetNames.length === 0) {
-            console.error('No dataset names found in the CSV file.');
-            return;
-        }
+        // Process datasets
+        for (const process of datasetList) {
+            for (const dataset of process.Datasets) {
+                const datasetName = dataset.datasetName;
+                const datasetUrl = `${datasetBaseUrl}${datasetName}`;
+                const csvFilePath = path.join(csvDirectory, `${datasetName}.csv`);
 
-        console.log(`Datasets found: ${datasetNames.join(', ')}`);
+                console.log(`\n🔄 Processing dataset: ${datasetName}`);
 
-        // Step 2: Log in to the application
-        await page.goto('https://perftesting.tst.zingworks.com/view/login', { waitUntil: 'networkidle0' });
-        await page.type('#email', 'saradha@kissflow.com', { delay: 100 });
-        await page.type('#password', 'Saradha@1228', { delay: 100 });
-        await page.click('button[data-component="button"]');
-        await page.waitForNavigation({ waitUntil: 'networkidle0' });
+                if (!fs.existsSync(csvFilePath)) {
+                    console.warn(`⚠️ CSV not found: ${csvFilePath}`);
+                    continue;
+                }
 
-        console.log('Logged in successfully.');
+                // Navigate to dataset
+                await page.goto(datasetUrl, { waitUntil: 'networkidle2', timeout: 60000 });
+                await wait(3000);
 
-        // Step 3: Process each dataset
-        for (const datasetName of datasetNames) {
-            const datasetUrl = `https://perftesting.tst.zingworks.com/view/dataset/${datasetName}`;
-            const csvFilePath = path.join(datasetsPath, `${datasetName}.csv`);
+                // Import CSV
+                if (!await safeClick(page, "div[class*='actions--'] button:nth-child(1)", { timeout: 15000 })) {
+                    console.warn('Failed to click Import CSV');
+                    continue;
+                }
+                console.log('📥 Import CSV clicked');
 
-            if (!fs.existsSync(csvFilePath)) {
-                console.log(`CSV file for dataset "${datasetName}" not found. Skipping.`);
-                continue;
+                // Upload file
+                if (!await safeClick(page, "div[class*='modalContentWrapper--'] button:nth-child(1)", { timeout: 15000 })) {
+                    console.warn('Failed to click Upload File');
+                    continue;
+                }
+                console.log('📤 Upload File clicked');
+
+                // Handle file input
+                const fileInput = await page.$("input[type='file'][accept='.csv']");
+                if (fileInput) {
+                    await fileInput.uploadFile(csvFilePath);
+                    console.log(`📂 Uploaded: ${datasetName}.csv`);
+                    await wait(3000);
+                } else {
+                    console.warn('File input not found');
+                    continue;
+                }
+
+                // Handle Next buttons
+                await clickNextButton(page, 3, 3000);
+
+                // Final wait before next dataset
+                await wait(5000);
             }
-
-            console.log(`Processing dataset: ${datasetName}`);
-            await page.goto(datasetUrl, { waitUntil: 'networkidle0' });
-
-            // Step 4: Open Import CSV Dialog
-            console.log('Opening the Import CSV dialog...');
-            await page.click('div[class="actions--b8d99bd2"] div button:nth-child(1)'); // Adjust selector
-            console.log('Import CSV dialog opened.');
-            await wait(3000); // Wait for dialog to open
-
-            // Step 5: Upload the CSV File
-            console.log('Waiting for the file input...');
-            const fileInputSelector = 'div[class="modalContentWrapper--185f4779"] button:nth-child(1)'; // Adjust to the correct input selector
-            await page.waitForSelector(fileInputSelector, { visible: true });
-
-            // Upload the file using fileChooser
-            await uploadFileUsingFileChooser(page, csvFilePath, fileInputSelector);
-            console.log(`File ${csvFilePath} uploaded successfully.`);
-
-            // Step 6: Handle further steps (e.g., clicking "Next" after uploading)
-            await wait(5000); // Wait for upload to finish
-
-            // Proceed with import steps (e.g., clicking Next buttons, handling form data)
-            console.log('Proceeding with form steps...');
-            await page.waitForSelector('div[class="ant-modal-root"] button:nth-child(2)');
-            console.log('First next button clicking..');
-            await wait(3000);
-            await page.click('div[class="ant-modal-root"] button:nth-child(2)'); // Adjust for Next button
-            await handleEmptyFields(page);
-            console.log('First next button clicked successfully');
-            await wait(3000);
-            await page.click('div[class="ant-modal-root"] button:nth-child(2)'); // Second "Next"
-            console.log('second next button clicked successfully');
-            await wait(3000);
-            await page.click('div[class="ant-modal-root"] button:nth-child(2)'); // Third "Next"
-            console.log('Third next button clicked successfully');
         }
-
-        console.log('All datasets processed successfully.');
-    } catch (err) {
-        console.error('An error occurred:', err.message);
+    } catch (error) {
+        console.error("❌ Script failed:", error);
+        await page.screenshot({ path: 'error.png', fullPage: true });
+        console.log('Saved error screenshot as error.png');
     } finally {
         await browser.close();
+        console.log('Browser closed');
     }
-})();
+}
+
+// Run with error handling
+processDatasets().catch(err => {
+    console.error('Unhandled error:', err);
+    process.exit(1);
+});

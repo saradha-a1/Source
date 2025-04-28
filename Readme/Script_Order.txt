@@ -1,0 +1,32 @@
+Users - Add user if required 
+
+1. Add User 
+2. Activate User 
+
+Process - Generate Form fields based on Domain use case
+
+1. Usecase - Based on Domain name, generate the process name and use case 
+2. Domain - Extract the process name 
+3. Forms - 
+4. Jsonextract - 
+5. Create process - 
+6. Metadata - 
+7. Process schema - 
+8. Publish - 
+9. Process ID - 
+
+Dataset - 
+
+
+List - 
+
+Performance script plan 
+
+process - 100 integration - 50 - reports - 20 - dataset - 50 - list - 30 --> 
+
+1. concurrently hit the process work - 5 or 10 process / reports/dataset/list - same user 
+2. concurrently hit the process work - 5 or 10 process / reports/dataset/list - same user 
+compare both and hit the different user simultaneously 
+
+echo $DOMAIN_NAME
+unset DOMAIN_NAME
